@@ -6,17 +6,17 @@ class Root extends Component {
   constructor() {
     super()
     this.state = {
-      number: 0
+      number: 1
     }
   }
 
   render() {
     return (
-      <TouchableOpacity onPress={() => this.setState({number: this.state.number + 1})}>
-        <View>
+      <View style={{padding: 20}}>
+        <TouchableOpacity onPress={() => this.setState({number: this.state.number + 1})}>
           <Text> number: {this.state.number} </Text>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     )
   }
 
