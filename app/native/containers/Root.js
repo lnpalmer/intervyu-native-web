@@ -12,7 +12,7 @@ class Root extends Component {
 
   render() {
     return (
-      <View style={{padding: 20}}>
+      <View style={{padding: 30}}>
         <TouchableOpacity onPress={() => this.setState({number: this.state.number + 1})}>
           <Text> number: {this.state.number} </Text>
         </TouchableOpacity>
