@@ -1,16 +1,23 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 
 class Root extends Component {
 
+  constructor() {
+    super()
+    this.state = {
+      number: 0
+    }
+  }
+
   render() {
-
     return (
-      <View>
-        <Text> 232 </Text>
-      </View>
+      <TouchableOpacity onPress={() => this.setState({number: this.state.number + 1})}>
+        <View>
+          <Text> number: {this.state.number} </Text>
+        </View>
+      </TouchableOpacity>
     )
-
   }
 
 }
