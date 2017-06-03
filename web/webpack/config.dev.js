@@ -20,7 +20,13 @@ module.exports = {
         include: APP_DIR,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015', 'react']
+          presets: [
+            "react",
+            ["es2015", { modules: false }]
+          ],
+          plugins: [
+            'react-hot-loader/babel'
+          ]
         }
       }
     ]
