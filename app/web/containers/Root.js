@@ -11,9 +11,13 @@ import Actions from '../../actions/Actions'
 class Root extends Component {
 
   render() {
-    return <h3 onClick={() => {
-      this.props.dispatch(Actions.increase(1))
-    }}> number: {this.props.number}</h3>
+
+    return (
+      <h3 onClick={() => this.props.dispatch(Actions.increase(1))}>
+        number: {this.props.number}
+      </h3>
+    )
+    
   }
 
 }

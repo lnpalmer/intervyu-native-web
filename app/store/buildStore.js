@@ -1,27 +1,34 @@
+const DEVELOPMENT = process.env.NODE_ENV === 'development'
+const WEB = process.env.PLATFORM_ENV === 'web'
+
 import { createStore, applyMiddleware } from 'redux'
 import promise from 'redux-promise-middleware'
-import { createLogger } from 'redux-logger'
+const createLogger = DEVELOPMENT ? require('redux-logger').createLogger : undefined
 
 import reducer from '../reducers/reducer'
 
 function buildStore() {
 
-  let middleware = applyMiddleware(promise(), createLogger())
+  let middleware
+  if (DEVELOPMENT && WEB) middleware = applyMiddleware(createLogger(), promise())
+  else middleware = applyMiddleware(promise())
 
   let store = createStore(reducer, middleware)
 
   if (module.hot) {
-    module.hot.accept(() => {
-      const nextReducer = require('../reducers/reducer').default
-      store.replaceReducer(nextReducer)
-    })
+    if (WEB) {
+      module.hot.accept('../reducers/reducer', () => {
+        store.replaceReducer(reducer)
+      })
+    } else {
+      module.hot.accept(() => {
+        const nextReducer = require('../reducers/reducer').default
+        store.replaceReducer(nextReducer)
+      })
+    }
   }
 
   return store
 }
 
 export default buildStore
-
-/*const development = true//process.env.NODE_ENV === 'development' && process.env.PLATFORM_ENV === 'web'
-if (development) module.exports = require('./buildStore.dev')
-else module.exports = require('./buildStore.prod')*/

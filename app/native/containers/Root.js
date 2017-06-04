@@ -12,6 +12,7 @@ import Actions from '../../actions/Actions'
 class Root extends Component {
 
   render() {
+
     return (
       <TouchableOpacity onPress={() => this.props.dispatch(Actions.increase(1))}>
         <View>
@@ -19,7 +20,9 @@ class Root extends Component {
         </View>
       </TouchableOpacity>
     )
+
   }
+  
 }
 
 export default Root
