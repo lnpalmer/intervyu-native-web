@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, TouchableOpacity } from 'react-native'
 
-import Actions from '../../actions/Actions'
+import UserActions from '../../actions/UserActions'
 
 @connect(store => {
   return {

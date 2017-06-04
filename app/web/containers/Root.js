@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Actions from '../../actions/Actions'
+import UserActions from '../../actions/UserActions'
 
 @connect(store => {
   return {
-    number: store.number
+    user: store.user.identity
   }
 })
 class Root extends Component {
@@ -13,11 +13,11 @@ class Root extends Component {
   render() {
 
     return (
-      <h3 onClick={() => this.props.dispatch(Actions.increase(1))}>
-        number: {this.props.number}
+      <h3 onClick={() => this.props.dispatch(UserActions.setName('a name'))}>
+        user: {this.props.user.name}
       </h3>
     )
-    
+
   }
 
 }

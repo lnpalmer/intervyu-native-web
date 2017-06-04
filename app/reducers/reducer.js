@@ -1,17 +1,11 @@
-const initialState = {
-  number: 0
-}
+import { combineReducers } from 'redux'
 
-function reducer(state = initialState, action) {
+import userReducer from './userReducer'
+import jobsReducer from './jobsReducer'
 
-  if (action.type == 'INC') {
-
-    state = {...state, number: state.number + action.payload}
-
-  }
-
-  return state
-
-}
+const reducer = combineReducers({
+  user: userReducer,
+  jobs: jobsReducer
+})
 
 export default reducer
