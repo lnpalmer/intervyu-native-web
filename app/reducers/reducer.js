@@ -6,7 +6,7 @@ function reducer(state = initialState, action) {
 
   if (action.type == 'INC') {
 
-    state = {...state, number: state.number - action.payload}
+    state = {...state, number: state.number + action.payload}
 
   }
 

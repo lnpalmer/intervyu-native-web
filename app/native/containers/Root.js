@@ -1,24 +1,19 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
-import { connect } from 'react-redux'
+import { Provider } from 'react-redux'
 
-import Actions from '../../actions/Actions'
+import buildStore from '../../store/buildStore'
+import Navigation from './Navigation'
 
-@connect(store => {
-  return {
-    number: store.number
-  }
-})
+export const store = buildStore({number: 0})
+
 class Root extends Component {
 
   render() {
 
     return (
-      <TouchableOpacity onPress={() => this.props.dispatch(Actions.increase(1))}>
-        <View style={{padding: 30}}>
-          <Text> {this.props.number} </Text>
-        </View>
-      </TouchableOpacity>
+      <Provider store={store}>
+        <Navigation/>
+      </Provider>
     )
 
   }
@@ -26,3 +21,11 @@ class Root extends Component {
 }
 
 export default Root
+
+/*
+<TouchableOpacity onPress={() => this.props.dispatch(Actions.increase(1))}>
+  <View style={{padding: 30}}>
+    <Text> {this.props.number} </Text>
+  </View>
+</TouchableOpacity>
+*/
