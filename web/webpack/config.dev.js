@@ -17,18 +17,29 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        include: APP_DIR,
+        exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
           presets: [
             "react",
+            "stage-2",
             ["es2015", { modules: false }]
           ],
           plugins: [
-            'react-hot-loader/babel'
-          ]
+            'react-hot-loader/babel',
+            'transform-decorators-legacy'
+          ],
+          babelrc: false
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development'),
+        PLATFORM_ENV: JSON.stringify('web')
+      }
+    })
+  ]
 }

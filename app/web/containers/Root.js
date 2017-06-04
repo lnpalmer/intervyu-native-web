@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
+import Actions from '../../actions/Actions'
+
+@connect(store => {
+  return {
+    number: store.number
+  }
+})
 class Root extends Component {
 
-  constructor() {
-    super()
-    this.state = {
-      number: 0
-    }
-  }
-
   render() {
-    return <h3 onClick={() => this.setState({number: this.state.number + 1})}> number: {this.state.number} </h3>
+    return <h3 onClick={() => {
+      this.props.dispatch(Actions.increase(1))
+    }}> number: {this.props.number}</h3>
   }
 
 }
