@@ -15,14 +15,14 @@ class Root extends Component {
 
     return (
       <TouchableOpacity onPress={() => this.props.dispatch(Actions.increase(1))}>
-        <View>
+        <View style={{padding: 30}}>
           <Text> number: {this.props.number} </Text>
         </View>
       </TouchableOpacity>
     )
 
   }
-  
+
 }
 
 export default Root
