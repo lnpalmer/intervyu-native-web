@@ -4,24 +4,23 @@ import { createLogger } from 'redux-logger'
 
 import reducer from '../reducers/reducer'
 
-export default initialState => {
-  const logger = createLogger()
+function buildStore() {
 
-  let store = createStore(
-    reducer,
-    initialState,
-    applyMiddleware(promise(), logger)
-  )
+  let middleware = applyMiddleware(promise(), createLogger())
+
+  let store = createStore(reducer, middleware)
 
   if (module.hot) {
     module.hot.accept(() => {
-      const nextRootReducer = require('../reducers/reducer').default
-      store.replaceReducer(nextRootReducer)
+      const nextReducer = require('../reducers/reducer').default
+      store.replaceReducer(nextReducer)
     })
   }
 
   return store
 }
+
+export default buildStore
 
 /*const development = true//process.env.NODE_ENV === 'development' && process.env.PLATFORM_ENV === 'web'
 if (development) module.exports = require('./buildStore.dev')
