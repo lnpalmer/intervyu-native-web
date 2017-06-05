@@ -1,9 +1,10 @@
 const initialState = {
   identity: {
-    name: 'no name'
+    email: 'email',
+    password: 'password'
   },
   config: {
-    
+
   }
 }
 
@@ -12,7 +13,15 @@ const initialState = {
 */
 function userReducer(state = initialState, action) {
 
-  if (action.type === 'SET_NAME') state = {...state, identity: {...state.identity, name: action.payload}}
+  if (action.type === 'SET_EMAIL') state = {
+    ...state,
+    identity: {...state.identity, email: action.payload}
+  }
+
+  if (action.type === 'SET_PASSWORD') state = {
+    ...state,
+    identity: {...state.identity, password: action.payload}
+  }
 
   return state
 

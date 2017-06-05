@@ -1,24 +1,24 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { View, Text, TouchableOpacity } from 'react-native'
+import { Provider } from 'react-redux'
 
-import UserActions from '../../actions/UserActions'
+import buildStore from '../../store/buildStore'
+import IVHeader from './IVHeader'
+import IVNavigation from './IVNavigation'
 
-@connect(store => {
-  return {
-    number: store.number
-  }
-})
+export const store = buildStore()
+
 class Root extends Component {
 
   render() {
 
     return (
-      <TouchableOpacity onPress={() => this.props.dispatch(Actions.increase(1))}>
-        <View style={{padding: 30}}>
-          <Text> number: {this.props.number} </Text>
+      <Provider store={store}>
+        <View>
+          <IVHeader/>
+          <IVNavigation/>
         </View>
-      </TouchableOpacity>
+      </Provider>
     )
 
   }
