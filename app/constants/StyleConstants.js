@@ -4,8 +4,6 @@ class StyleConstants {
 
   static altColor = '#fff'
 
-  static mainFontFamily = 'avenir'
-
 }
 
 export default StyleConstants

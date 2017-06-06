@@ -14,18 +14,20 @@ class IVTextInput extends Component {
       }}>
         <TextInput style={{
             color: StyleConstants.mainColor,
-            height: 30,
+            height: 50,
             fontSize: 22,
             textAlign: 'center',
           }}
           value={this.props.value}
           onChangeText={value => this.props.onValue(value)}
           secureTextEntry={this.props.secureTextEntry}
+          underlineColorAndroid={'#0000'}
         />
         <View style={{
           backgroundColor: StyleConstants.mainColor,
           height: 2
         }}/>
+
       </View>
     )
 

@@ -11,7 +11,6 @@ const viewStyle = {
 
 const textStyle = {
   color: StyleConstants.altColor,
-  fontFamily: 'avenir',
   fontSize: 28,
   fontWeight: '600',
   textAlign: 'center'

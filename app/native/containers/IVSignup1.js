@@ -7,6 +7,7 @@ import IVText from '../components/IVText'
 import IVTextInput from '../components/IVTextInput'
 
 import UserActions from '../../actions/UserActions'
+import DisplayActions from '../../actions/DisplayActions'
 
 @connect(store => {
   return {
@@ -22,6 +23,10 @@ class IVSignup1 extends Component {
     return (
       <View>
         <IVText value="Signup process"/>
+        <IVButton
+          value="Sign out"
+          onPress={() => dispatch(DisplayActions.setView('mainMenu'))}
+        />
       </View>
     )
 
