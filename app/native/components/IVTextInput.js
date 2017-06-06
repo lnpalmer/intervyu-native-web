@@ -17,6 +17,8 @@ class IVTextInput extends Component {
             height: 50,
             fontSize: 22,
             textAlign: 'center',
+            fontFamily: StyleConstants.fontFamily,
+            fontWeight: '500'
           }}
           value={this.props.value}
           onChangeText={value => this.props.onValue(value)}

@@ -18,7 +18,7 @@ const bufferStyle = {
 }
 
 const textStyle = {
-  fontFamily: StyleConstants.mainFontFamily,
+  fontFamily: StyleConstants.fontFamily,
   color: StyleConstants.mainColor,
   fontSize: 34,
   fontWeight: '500',

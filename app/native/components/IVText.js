@@ -11,6 +11,7 @@ class IVText extends Component {
       <Text style={{
         fontSize: 18,
         color: StyleConstants.mainColor,
+        fontFamily: StyleConstants.fontFamily,
         fontWeight: '500',
         textAlign: 'center'
       }}> {this.props.value} </Text>

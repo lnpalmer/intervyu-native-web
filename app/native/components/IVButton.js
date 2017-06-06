@@ -6,14 +6,16 @@ import StyleConstants from '../../constants/StyleConstants'
 const viewStyle = {
   backgroundColor: StyleConstants.mainColor,
   margin: 10,
-  alignItems: 'center'
+  alignItems: 'center',
+  height: 40
 }
 
 const textStyle = {
   color: StyleConstants.altColor,
   fontSize: 28,
   fontWeight: '600',
-  textAlign: 'center'
+  textAlign: 'center',
+  fontFamily: StyleConstants.fontFamily
 }
 
 class IVButton extends Component {
