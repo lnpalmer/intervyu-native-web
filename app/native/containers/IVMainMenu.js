@@ -35,6 +35,7 @@ class IVMainMenu extends Component {
           value="Sign in"
           onPress={() => dispatch(DisplayActions.setView('jobs'))}
         />
+        
         <IVText value="Don't have an account?"/>
         <IVButton
           value="Sign up"

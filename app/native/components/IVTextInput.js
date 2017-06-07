@@ -10,18 +10,20 @@ class IVTextInput extends Component {
 
     return (
       <View style={{
-        margin: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 10
       }}>
         <TextInput style={{
             color: StyleConstants.mainColor,
-            height: 50,
+            height: 48,
             fontSize: 22,
             textAlign: 'center',
             fontFamily: StyleConstants.fontFamily,
-            fontWeight: '500'
+            fontWeight: '500',
           }}
           value={this.props.value}
-          onChangeText={value => this.props.onValue(value)}
+          onChangeText={value => (this.props.onValue || (v => 0))(value)}
           secureTextEntry={this.props.secureTextEntry}
           underlineColorAndroid={'#0000'}
         />

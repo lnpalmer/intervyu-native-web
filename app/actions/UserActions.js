@@ -3,7 +3,7 @@ class UserActions {
   static setEmail(email) {
 
     return {
-      type: 'SET_EMAIL',
+      type: 'SET_USER_EMAIL',
       payload: email
     }
 
@@ -12,8 +12,26 @@ class UserActions {
   static setPassword(password) {
 
     return {
-      type: 'SET_PASSWORD',
+      type: 'SET_USER_PASSWORD',
       payload: password
+    }
+
+  }
+
+  static setPasswordRepeat(passwordRepeat) {
+
+    return {
+      type: 'SET_USER_PASSWORD_REPEAT',
+      payload: passwordRepeat
+    }
+
+  }
+
+  static setName(name) {
+
+    return {
+      type: 'SET_USER_NAME',
+      payload: name
     }
 
   }

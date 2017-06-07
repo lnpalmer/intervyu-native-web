@@ -22,10 +22,33 @@ class IVSignup1 extends Component {
 
     return (
       <View>
-        <IVText value="Signup process"/>
+        <IVText value="What's your name?"/>
+        <IVTextInput
+          value={user.identity.name}
+          onValue={value => dispatch(UserActions.setName(value))}
+        />
+
+        <IVText value="Your email address:"/>
+        <IVTextInput
+          value={user.identity.email}
+          onValue={value => dispatch(UserActions.setEmail(value))}
+        />
+
+        <IVText value="Enter a password:"/>
+        <IVTextInput
+          value={user.identity.password}
+          onValue={value => dispatch(UserActions.setPassword(value))}
+        secureTextEntry/>
+
+        <IVText value="Repeat your password:"/>
+        <IVTextInput
+          value={user.identity.passwordRepeat}
+          onValue={value => dispatch(UserActions.setPasswordRepeat(value))}
+        secureTextEntry/>
+
         <IVButton
-          value="Sign out"
-          onPress={() => dispatch(DisplayActions.setView('mainMenu'))}
+          value="Next"
+          onPress={() => dispatch(DisplayActions.setView('signup2'))}
         />
       </View>
     )
