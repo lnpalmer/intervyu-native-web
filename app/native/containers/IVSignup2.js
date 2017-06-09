@@ -23,26 +23,7 @@ class IVSignup2 extends Component {
 
     return (
       <View>
-        <IVText value="What industries are you interested in?"/>
-        <View style={{
-          flex: 0,
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          padding: 10,
-          justifyContent: 'center'
-        }}>
-          <IVCheckbox text="Automotive" checked={true}/>
-          <IVCheckbox text="Sales" checked={false}/>
-          <IVCheckbox text="Compute" checked={false}/>
-          <IVCheckbox text="Big Data" checked={false}/>
-          <IVCheckbox text="Electric" checked={true}/>
-          <IVCheckbox text="Biotech" checked={false}/>
-          <IVCheckbox text="Environmental" checked={true}/>
-          <IVCheckbox text="Management" checked={false}/>
-          <IVCheckbox text="Maths" checked={true}/>
-        </View>
-
-        <IVText value="What work experience do you have?"/>
+        <IVText value="What types of work experience do you have?"/>
         <View style={{
           flex: 0,
           flexDirection: 'row',
@@ -57,7 +38,7 @@ class IVSignup2 extends Component {
           <IVCheckbox text="Study abroad" checked={true}/>
           <IVCheckbox text="Lab work" checked={false}/>
         </View>
-        
+
         <IVButton
           value="Next"
           onPress={() => dispatch(DisplayActions.setView('signup3'))}

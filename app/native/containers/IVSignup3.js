@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, Button } from 'react-native'
 import { connect } from 'react-redux'
+import RNGooglePlacePicker from 'react-native-google-place-picker'
 
 import IVButton from '../components/IVButton'
 import IVText from '../components/IVText'
@@ -17,33 +18,23 @@ import DisplayActions from '../../actions/DisplayActions'
 })
 class IVSignup3 extends Component {
 
+  componentDidMount() {
+
+    RNGooglePlacePicker.show(response => {
+
+      console.log(response)
+
+    })
+
+  }
+
   render() {
 
     const { user, dispatch } = this.props
 
     return (
       <View>
-
-        <IVText value="What types of tasks are you willing to do?"/>
-        <View style={{
-          flex: 0,
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          padding: 10,
-          justifyContent: 'center'
-        }}>
-          <IVCheckbox text="Labor" checked={true}/>
-          <IVCheckbox text="Research" checked={false}/>
-          <IVCheckbox text="Programming" checked={false}/>
-          <IVCheckbox text="Fieldwork" checked={false}/>
-          <IVCheckbox text="Study abroad" checked={true}/>
-          <IVCheckbox text="Lab work" checked={false}/>
-        </View>
-
-        <IVButton
-          value="Next"
-          onPress={() => dispatch(DisplayActions.setView('mainMenu'))}
-        />
+        <IVText value="Pick a location from the popup."/>
       </View>
     )
 
