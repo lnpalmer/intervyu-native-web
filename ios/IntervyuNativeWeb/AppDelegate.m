@@ -12,6 +12,9 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
+#import <GoogleMaps/GoogleMaps.h>
+#import <GooglePlaces/GooglePlaces.h>
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -31,6 +34,11 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+  NSString *kAPIKey = @"AIzaSyAiYAbZp3T26_KoYHWL9hhsP_kdU1_MHzg";
+  [GMSPlacesClient provideAPIKey:kAPIKey];
+  [GMSServices provideAPIKey:kAPIKey];
+  
   return YES;
 }
 

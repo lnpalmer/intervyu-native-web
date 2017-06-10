@@ -1,4 +1,6 @@
 rootProject.name = 'IntervyuNativeWeb'
+include ':react-native-vector-icons'
+project(':react-native-vector-icons').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-vector-icons/android')
 include ':react-native-google-place-picker'
 project(':react-native-google-place-picker').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-google-place-picker/android')
 
