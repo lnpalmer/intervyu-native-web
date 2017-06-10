@@ -20,11 +20,7 @@ class IVSignup3 extends Component {
 
   componentDidMount() {
 
-    RNGooglePlacePicker.show(response => {
-
-      console.log(response)
-
-    })
+    this.pickLocation()
 
   }
 
@@ -34,9 +30,45 @@ class IVSignup3 extends Component {
 
     return (
       <View>
-        <IVText value="Pick a location from the popup."/>
+
+        {
+          user.config.location.didCancel ?
+          (
+            <View>
+              <IVText value="Location not recieved."/>
+              <IVButton
+                value="Set location"
+                onPress={() => this.pickLocation()}
+              />
+            </View>
+          ) :
+          null
+        }
+
+        <IVText value="How many hours can you work per week?"/>
+        <IVTextInput
+          numeric
+          value={user.config.hours}
+        />
+
       </View>
     )
+
+  }
+
+  pickLocation() {
+
+    const { user, dispatch } = this.props
+
+    RNGooglePlacePicker.show(response => {
+
+      dispatch(UserActions.setLocation({
+        latitude: response.latitude,
+        longitude: response.longitude,
+        didCancel: response.didCancel
+      }))
+
+    })
 
   }
 

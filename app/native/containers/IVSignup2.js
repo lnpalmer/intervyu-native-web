@@ -9,6 +9,7 @@ import IVCheckbox from '../components/IVCheckbox'
 
 import UserActions from '../../actions/UserActions'
 import DisplayActions from '../../actions/DisplayActions'
+import JobConstants from '../../constants/JobConstants'
 
 @connect(store => {
   return {
@@ -31,12 +32,50 @@ class IVSignup2 extends Component {
           padding: 10,
           justifyContent: 'center'
         }}>
-          <IVCheckbox text="Labor" checked={true}/>
-          <IVCheckbox text="Research" checked={false}/>
-          <IVCheckbox text="Programming" checked={false}/>
-          <IVCheckbox text="Fieldwork" checked={false}/>
-          <IVCheckbox text="Study abroad" checked={true}/>
-          <IVCheckbox text="Lab work" checked={false}/>
+          {
+            JobConstants.experienceTypes.map(experienceType => {
+              return (
+                <IVCheckbox
+                  key={experienceType}
+                  text={experienceType}
+                  value={user.config.experience.includes(experienceType)}
+                  onValue={value => {
+                    dispatch(value ?
+                      UserActions.addExperience(experienceType) :
+                      UserActions.delExperience(experienceType)
+                    )
+                  }}
+                />
+              )
+            })
+          }
+        </View>
+
+        <IVText value="What days can you work?"/>
+        <View style={{
+          flex: 0,
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          padding: 10,
+          justifyContent: 'center'
+        }}>
+          {
+            JobConstants.days.map(day => {
+              return (
+                <IVCheckbox
+                  key={day}
+                  text={day}
+                  value={user.config.days.includes(day)}
+                  onValue={value => {
+                    dispatch(value ?
+                      UserActions.addDay(day) :
+                      UserActions.delDay(day)
+                    )
+                  }}
+                />
+              )
+            })
+          }
         </View>
 
         <IVButton

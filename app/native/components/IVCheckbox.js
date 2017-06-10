@@ -23,9 +23,9 @@ class IVCheckbox extends Component {
           color: StyleConstants.mainColor
         }}> {this.props.text} </Text>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.onValue(!this.props.value)}>
           <Icon
-            name={this.props.checked ? "check-circle" : "circle"}
+            name={this.props.value ? "check-circle" : "circle"}
             size={22}
             color={StyleConstants.mainColor}
           />

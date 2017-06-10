@@ -22,10 +22,13 @@ class IVMainMenu extends Component {
 
     return (
       <View>
+
+        <IVText value="Email:"/>
         <IVTextInput
           value={user.identity.email}
           onValue={value => dispatch(UserActions.setEmail(value))}
         />
+        <IVText value="Password:"/>
         <IVTextInput
           value={user.identity.password}
           onValue={value => dispatch(UserActions.setPassword(value))}
@@ -35,12 +38,13 @@ class IVMainMenu extends Component {
           value="Sign in"
           onPress={() => dispatch(DisplayActions.setView('jobs'))}
         />
-        
+
         <IVText value="Don't have an account?"/>
         <IVButton
           value="Sign up"
           onPress={() => dispatch(DisplayActions.setView('signup1'))}
         />
+
       </View>
     )
 

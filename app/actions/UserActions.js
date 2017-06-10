@@ -36,6 +36,51 @@ class UserActions {
 
   }
 
+  static setLocation(location) {
+
+    return {
+      type: 'SET_USER_LOCATION',
+      payload: location
+    }
+
+  }
+
+  static addExperience(experience) {
+
+    return {
+      type: 'ADD_USER_EXPERIENCE',
+      payload: experience
+    }
+
+  }
+
+  static delExperience(experience) {
+
+    return {
+      type: 'DEL_USER_EXPERIENCE',
+      payload: experience
+    }
+
+  }
+
+  static addDay(day) {
+
+    return {
+      type: 'ADD_USER_DAY',
+      payload: day
+    }
+
+  }
+
+  static delDay(day) {
+
+    return {
+      type: 'DEL_USER_DAY',
+      payload: day
+    }
+
+  }
+
 }
 
 export default UserActions
