@@ -82,6 +82,7 @@ class IVSignup2 extends Component {
           value="Next"
           onPress={() => dispatch(DisplayActions.setView('signup3'))}
         />
+
       </View>
     )
 

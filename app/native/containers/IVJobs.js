@@ -20,8 +20,13 @@ class IVJobs extends Component {
 
     const { user, dispatch } = this.props
 
+    if (user.status === 'new') {
+      dispatch(UserActions.uploadUser(user))
+    }
+
     return (
       <View>
+        <IVText value={"User status: " + user.status}/>
         <IVButton
           value="Sign out"
           onPress={() => dispatch(DisplayActions.setView('mainMenu'))}

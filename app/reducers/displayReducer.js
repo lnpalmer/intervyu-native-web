@@ -16,6 +16,13 @@ function displayReducer(state = initialState, action) {
     state = {...state, statusBarHeight: action.payload}
   }
 
+  if (action.type === 'CREATE_USER_FULFILLED') {
+    state = {
+      ...state,
+      view: 'jobs'
+    }
+  }
+
   return state
 
 }

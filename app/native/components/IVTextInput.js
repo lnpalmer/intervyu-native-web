@@ -20,14 +20,10 @@ class IVTextInput extends Component {
             fontSize: 22,
             textAlign: 'center',
             fontFamily: StyleConstants.fontFamily,
-            fontWeight: '500',
+            fontWeight: '500'
           }}
-          value={
-            this.props.numeric ?
-            this.props.value.toString() :
-            this.props.value
-          }
-          onChangeText={value => (this.props.onValue || (v => 0))(value)}
+          value={this.props.value}
+          onChangeText={value => this.props.onValue(value)}
           secureTextEntry={this.props.secureTextEntry}
           underlineColorAndroid={'#0000'}
         />

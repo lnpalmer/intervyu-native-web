@@ -9,7 +9,8 @@ class IVText extends Component {
 
     return (
       <Text style={{
-        fontSize: 18,
+        ...this.props.style || {},
+        fontSize: this.props.fontSize || 18,
         color: StyleConstants.mainColor,
         fontFamily: StyleConstants.fontFamily,
         fontWeight: '500',

@@ -1,3 +1,5 @@
+import * as firebase from 'firebase'
+
 class UserActions {
 
   static setEmail(email) {
@@ -45,6 +47,33 @@ class UserActions {
 
   }
 
+  static setHours(hours) {
+
+    return {
+      type: 'SET_USER_HOURS',
+      payload: hours
+    }
+
+  }
+
+  static setDistance(distance) {
+
+    return {
+      type: 'SET_USER_DISTANCE',
+      payload: distance
+    }
+
+  }
+
+  static setTransportation(transportation) {
+
+    return {
+      type: 'SET_USER_TRANSPORTATION',
+      payload: transportation
+    }
+
+  }
+
   static addExperience(experience) {
 
     return {
@@ -77,6 +106,24 @@ class UserActions {
     return {
       type: 'DEL_USER_DAY',
       payload: day
+    }
+
+  }
+
+  static createUser(email, password) {
+
+    return {
+      type: 'CREATE_USER',
+      payload: firebase.auth().createUserWithEmailAndPassword(email, password)
+    }
+
+  }
+
+  static uploadUser(userObject) {
+
+    return {
+      type: 'UPLOAD_USER',
+      payload: firebase.database().ref('users').push(userObject)
     }
 
   }

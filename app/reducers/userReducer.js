@@ -1,4 +1,5 @@
 const initialState = {
+  status: 'offline',
   identity: {
     email: '',
     password: '',
@@ -12,7 +13,9 @@ const initialState = {
       longitude: 0,
       latitude: 0
     },
-    hours: 4
+    hours: 4,
+    distance: 5,
+    transportation: false
   }
 }
 
@@ -20,6 +23,8 @@ const initialState = {
   User reducer - handles user configuration
 */
 function userReducer(state = initialState, action) {
+
+  console.log(action.type)
 
   if (action.type === 'SET_USER_EMAIL') state = {
     ...state,
@@ -44,6 +49,21 @@ function userReducer(state = initialState, action) {
   if (action.type === 'SET_USER_LOCATION') state = {
     ...state,
     config: {...state.config, location: action.payload}
+  }
+
+  if (action.type === 'SET_USER_HOURS') state = {
+    ...state,
+    config: {...state.config, hours: action.payload}
+  }
+
+  if (action.type === 'SET_USER_DISTANCE') state = {
+    ...state,
+    config: {...state.config, distance: action.payload}
+  }
+
+  if (action.type === 'SET_USER_TRANSPORTATION') state = {
+    ...state,
+    config: {...state.config, transportation: action.payload}
   }
 
   if (action.type === 'ADD_USER_EXPERIENCE') state = {
@@ -92,6 +112,26 @@ function userReducer(state = initialState, action) {
           .concat(state.config.days.slice(index + 1))
       }
     }
+  }
+
+  if (action.type === 'CREATE_USER_PENDING') state = {
+    ...state,
+    status: 'pendingCreation'
+  }
+
+  if (action.type === 'CREATE_USER_FULFILLED') state = {
+    ...state,
+    status: 'new'
+  }
+
+  if (action.type === 'UPLOAD_USER_PENDING') state = {
+    ...state,
+    status: 'pendingUpload'
+  }
+
+  if (action.type === 'UPLOAD_USER_FULFILLED') state = {
+    ...state,
+    status: 'online'
   }
 
   return state

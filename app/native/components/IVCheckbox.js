@@ -11,6 +11,7 @@ class IVCheckbox extends Component {
 
     return (
       <View style={{
+        ...this.props.style || {},
         flex: 0,
         flexDirection: 'row',
         height: 28,
@@ -19,7 +20,8 @@ class IVCheckbox extends Component {
       }}>
 
         <Text style={{
-          fontSize: 16,
+          fontSize: this.props.fontSize || 16,
+          fontFamily: StyleConstants.fontFamily,
           color: StyleConstants.mainColor
         }}> {this.props.text} </Text>
 

@@ -48,10 +48,32 @@ class IVSignup1 extends Component {
 
         <IVButton
           value="Next"
-          onPress={() => dispatch(DisplayActions.setView('signup2'))}
+          onPress={() => this.validateInput()}
         />
       </View>
     )
+
+  }
+
+  validateInput() {
+
+    const { user, dispatch } = this.props
+
+    if (user.identity.name === '') {
+      alert('Please enter a name.')
+      return
+    } else if (user.identity.email === '') {
+      alert('Please enter an email address.')
+      return
+    } else if (user.identity.password.length < 6) {
+      alert('Please enter a password at least 6 characters long.')
+      return
+    } else if (user.identity.passwordRepeat !== user.identity.password) {
+      alert('Please confirm your password')
+      return
+    } else {
+      dispatch(DisplayActions.setView('signup2'))
+    }
 
   }
 
