@@ -17,6 +17,7 @@ function buildStore() {
 
   if (module.hot) {
     if (WEB) {
+      console.log('11')
       module.hot.accept('../reducers/reducer', () => {
         store.replaceReducer(reducer)
       })

@@ -1,7 +1,4 @@
-import { Platform } from 'react-native'
-import StatusBarSizeIOS from 'react-native-status-bar-size'
-
-initialState = {
+const initialState = {
   statusBarHeight: 20,
   view: 'mainMenu'
 }

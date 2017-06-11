@@ -5,7 +5,6 @@ import StatusBarSizeIOS from 'react-native-status-bar-size'
 
 import DisplayActions from '../../actions/DisplayActions'
 import StyleConstants from '../../constants/StyleConstants'
-import { store } from './Root'
 
 const viewStyle = {
   backgroundColor: StyleConstants.altColor,
