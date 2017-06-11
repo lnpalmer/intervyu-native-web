@@ -38,6 +38,15 @@ class UserActions {
 
   }
 
+  static setType(type) {
+
+    return {
+      type: 'SET_USER_TYPE',
+      payload: type
+    }
+
+  }
+
   static setLocation(location) {
 
     return {

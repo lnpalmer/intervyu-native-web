@@ -22,8 +22,8 @@ module.exports = {
         query: {
           presets: [
             "react",
-            "stage-2",
-            ["es2015", { modules: false }]
+            ["es2015", { modules: false }],
+            "stage-2"
           ],
           plugins: [
             'react-hot-loader/babel',

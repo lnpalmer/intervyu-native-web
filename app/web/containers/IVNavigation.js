@@ -1,28 +1,21 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
 
 import IVMainMenu from './IVMainMenu'
+import IVSignupType from './IVSignupType'
 import IVSignup1 from './IVSignup1'
-import IVSignup2 from './IVSignup2'
-import IVSignup3 from './IVSignup3'
-import IVJobs from './IVJobs'
 
-@connect(store => {
-  return {
+@connect(store => { return {
     view: store.display.view
-  }
-})
+}})
 class IVNavigation extends Component {
 
   render() {
-    switch(this.props.view) {
+    switch (this.props.view) {
 
       case 'mainMenu': return <IVMainMenu/>
+      case 'signupType': return <IVSignupType/>
       case 'signup1': return <IVSignup1/>
-      case 'signup2': return <IVSignup2/>
-      case 'signup3': return <IVSignup3/>
-      case 'jobs': return <IVJobs/>
 
     }
   }

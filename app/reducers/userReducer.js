@@ -4,7 +4,8 @@ const initialState = {
     email: '',
     password: '',
     passwordRepeat: '',
-    name: ''
+    name: '',
+    type: 'student'
   },
   config: {
     experience: [],
@@ -44,6 +45,11 @@ function userReducer(state = initialState, action) {
   if (action.type === 'SET_USER_NAME') state = {
     ...state,
     identity: {...state.identity, name: action.payload}
+  }
+
+  if (action.type === 'SET_USER_TYPE') state = {
+    ...state,
+    identity: {...state.identity, type: action.payload}
   }
 
   if (action.type === 'SET_USER_LOCATION') state = {

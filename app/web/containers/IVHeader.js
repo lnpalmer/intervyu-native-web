@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import IVText from '../components/IVText'
 import UserActions from '../../actions/UserActions'
+import StyleConstants from '../../constants/StyleConstants'
 
 @connect(store => {
   return {
@@ -16,9 +17,16 @@ class IVHeader extends Component {
     const { user, dispatch } = this.props
 
     return (
-      <div>
-        <IVText value="Intervyu"/>
-        <h3 onClick={() => dispatch(UserActions.setName('hello'))}>{user.identity.name + " !."}</h3>
+      <div style={{
+        backgroundColor: StyleConstants.mainColor,
+        textAlign: 'center',
+        marginBottom: 30
+      }}>
+        <IVText
+          value="Intervyu"
+          fontSize={36}
+          inverted
+        />
       </div>
     )
 

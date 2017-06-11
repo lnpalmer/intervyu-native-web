@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import IVHeader from './IVHeader'
+import IVNavigation from './IVNavigation'
 
 class Root extends Component {
 
@@ -9,6 +10,7 @@ class Root extends Component {
     return (
       <div>
         <IVHeader/>
+        <IVNavigation/>
       </div>
     )
 
