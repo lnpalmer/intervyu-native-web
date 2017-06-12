@@ -9,8 +9,9 @@ class IVGroup extends Component {
         margin: '10 auto',
         width: this.props.width || 300,
         display: 'flex',
+        flexWrap: 'wrap',
         flexDirection: this.props.direction || 'column',
-        alignItems: 'center'
+        alignItems: 'center',
       }}>
         {this.props.children}
       </div>

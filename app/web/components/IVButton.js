@@ -12,7 +12,7 @@ class IVButton extends Component {
         margin: 10,
         borderRadius: 3,
         flex: 1,
-        padding: '3 7'
+        padding: '4 6'
       }}
       onClick={() => this.props.onClick()}>
         <IVText

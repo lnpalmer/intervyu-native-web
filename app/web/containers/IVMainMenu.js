@@ -42,6 +42,10 @@ class IVMainMenu extends Component {
         <IVGroup direction="row">
           <IVButton
             value="Sign in"
+            onClick={() => dispatch(UserActions.logIn(
+              user.identity.email,
+              user.identity.password
+            ))}
           />
           <IVButton
             value="Sign up"

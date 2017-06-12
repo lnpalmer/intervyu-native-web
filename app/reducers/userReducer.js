@@ -11,8 +11,8 @@ const initialState = {
     experience: [],
     days: [],
     location: {
-      longitude: 0,
-      latitude: 0
+      longitude: -81.6944,
+      latitude: 41.4993
     },
     hours: 4,
     distance: 5,
@@ -24,8 +24,6 @@ const initialState = {
   User reducer - handles user configuration
 */
 function userReducer(state = initialState, action) {
-
-  console.log(action.type)
 
   if (action.type === 'SET_USER_EMAIL') state = {
     ...state,
@@ -127,18 +125,20 @@ function userReducer(state = initialState, action) {
 
   if (action.type === 'CREATE_USER_FULFILLED') state = {
     ...state,
-    status: 'new'
-  }
-
-  if (action.type === 'UPLOAD_USER_PENDING') state = {
-    ...state,
-    status: 'pendingUpload'
-  }
-
-  if (action.type === 'UPLOAD_USER_FULFILLED') state = {
-    ...state,
     status: 'online'
   }
+
+  if (action.type === 'LOG_IN_USER_FULFILLED') {
+    const userData = action.payload.val()
+    state = {
+      status: 'online',
+      identity: { ...state.identity, ...userData.identity },
+      config: { ...state.config, ...userData.config }
+    }
+    console.log(state)
+  }
+
+  //if (action.type === 'LOG_OUT_USER_FULFILLED') state = initialState
 
   return state
 

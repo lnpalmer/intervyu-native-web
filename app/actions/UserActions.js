@@ -119,20 +119,39 @@ class UserActions {
 
   }
 
-  static createUser(email, password) {
+  static createUser(userObject) {
 
     return {
       type: 'CREATE_USER',
-      payload: firebase.auth().createUserWithEmailAndPassword(email, password)
+      payload:
+        firebase.auth().createUserWithEmailAndPassword(
+          userObject.identity.email,
+          userObject.identity.password
+        ).then(user => {
+          const fbUser = firebase.auth().currentUser
+          return firebase.database().ref('users/' + fbUser.uid).set(userObject)
+        })
     }
 
   }
 
-  static uploadUser(userObject) {
+  static logIn(email, password) {
 
     return {
-      type: 'UPLOAD_USER',
-      payload: firebase.database().ref('users').push(userObject)
+      type: 'LOG_IN_USER',
+      payload:
+        firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+          const fbUser = firebase.auth().currentUser
+          return firebase.database().ref('users/' + fbUser.uid).once('value')
+        })
+    }
+  }
+
+  static logOut() {
+
+    return {
+      type: 'LOG_OUT_USER',
+      payload: firebase.auth().signOut()
     }
 
   }
