@@ -156,6 +156,42 @@ class UserActions {
 
   }
 
+  static delete(userObject) {
+
+    const fbUser = firebase.auth().currentUser
+
+    console.log(fbUser)
+
+    const credential =
+      firebase.auth.EmailAuthProvider.credential(
+        userObject.identity.email,
+        userObject.identity.password
+      )
+
+    var payload = fbUser.reauthenticate(credential).then(() => {
+      return firebase.database().ref('users/' + fbUser.uid).remove().then(() => {
+        return fbUser.delete()
+      })
+    })
+
+    if (user.identity.type === 'employer') {
+      payload = firebase.database().ref('jobs')
+      .orderByChild('owner').equalTo(fbUser.uid)
+      .remove().then(() => {
+        return
+          firebase.database().ref('jobsSmall')
+          .orderByChild('owner').equalTo(fbUser.uid)
+          .remove()
+      })
+    }
+
+    return {
+      type: 'DELETE_USER',
+      payload: payload
+    }
+
+  }
+
 }
 
 export default UserActions

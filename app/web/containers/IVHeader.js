@@ -7,25 +7,31 @@ import StyleConstants from '../../constants/StyleConstants'
 
 @connect(store => {
   return {
-    user: store.user
+    display: store.display
   }
 })
 class IVHeader extends Component {
 
   render() {
 
-    const { user, dispatch } = this.props
+    const { display, dispatch } = this.props
 
     return (
       <div style={{
-        backgroundColor: StyleConstants.mainColor,
+        backgroundColor:
+          display.view === 'jobs' ?
+          StyleConstants.altColor:
+          StyleConstants.mainColor,
+        border: 0,
+        borderStyle: 'solid',
+        borderColor: StyleConstants.mainColor,
+        borderBottomWidth: 2,
         textAlign: 'center',
-        marginBottom: 30
       }}>
         <IVText
           value="Intervyu"
           fontSize={36}
-          inverted
+          inverted={display.view !== 'jobs'}
         />
       </div>
     )

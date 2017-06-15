@@ -6,6 +6,8 @@ class StyleConstants {
 
   static fontFamily = 'avenir'
 
+  static transition = '400ms'
+
 }
 
 export default StyleConstants

@@ -11,6 +11,15 @@ class JobsActions {
 
   }
 
+  static setAddress(address) {
+
+    return {
+      type: 'SET_JOB_ADDRESS',
+      payload: address
+    }
+
+  }
+
   static setHours(hours) {
 
     return {
@@ -34,6 +43,42 @@ class JobsActions {
     return {
       type: 'SET_JOB_TRANSPORTATION',
       payload: transportation
+    }
+
+  }
+
+  static setName(name) {
+
+    return {
+      type: 'SET_JOB_NAME',
+      payload: name
+    }
+
+  }
+
+  static setDescription(role) {
+
+    return {
+      type: 'SET_JOB_DESCRIPTION',
+      payload: role
+    }
+
+  }
+
+  static setLink(link) {
+
+    return {
+      type: 'SET_JOB_LINK',
+      payload: link
+    }
+
+  }
+
+  static setIcon(icon) {
+
+    return {
+      type: 'SET_JOB_ICON',
+      payload: icon
     }
 
   }
@@ -78,6 +123,7 @@ class JobsActions {
 
     const uploadObject = {
       ...jobObject,
+      icon: null,
       owner: firebase.auth().currentUser.uid
     }
 
@@ -85,10 +131,37 @@ class JobsActions {
       location: jobObject.location
     }
 
+    const file = jobObject.icon
+    const fileExtension = jobObject.iconExtension
+    const fileMetadata = { contentType: 'image/' + fileExtension }
+
     return {
       type: 'UPLOAD_JOB',
       payload: firebase.database().ref('jobs').push(uploadObject).then(reference => {
-        return firebase.database().ref('jobsSmall/' + reference.key).set(smallUploadObject)
+        return firebase.database().ref('jobsSmall/' + reference.key).set(smallUploadObject).then(smallReference => {
+          return (
+            firebase.storage().ref('jobs')
+            .child(reference.key + '/thumbnail.' + fileExtension)
+            .put(file, fileMetadata)
+          )
+        })
+      })
+    }
+
+  }
+
+  static deleteJob(jobObject) {
+
+    const jobRef = firebase.database().ref('jobs/' + jobObject.key)
+    const jobSmallRef = firebase.database().ref('jobsSmall/' + jobObject.key)
+    const thumbnailRef = firebase.storage().ref('jobs/' + jobObject.key + '/thumbnail.' + jobObject.iconExtension)
+
+    return {
+      type: 'DELETE_JOB',
+      payload: jobRef.remove().then(() => {
+        return jobSmallRef.remove().then(() => {
+          return thumbnailRef.delete()
+        })
       })
     }
 
@@ -108,6 +181,58 @@ class JobsActions {
     return {
       type: 'REMOVE_JOB_ENTRY',
       payload: jobKey
+    }
+
+  }
+
+  static setEntryExpanded(jobKey, expanded) {
+
+    return {
+      type: 'SET_JOB_ENTRY_EXPANDED',
+      payload: {
+        key: jobKey,
+        expanded: expanded
+      }
+    }
+
+  }
+
+  static getEntryThumbnail(jobKey, fileExtension) {
+
+    return {
+      type: 'GET_JOB_ENTRY_THUMBNAIL',
+      payload: firebase.storage().ref('jobs/' + jobKey + '/thumbnail.' + fileExtension).getDownloadURL().then(url => {
+        return Promise.resolve({ url: url, key: jobKey })
+      })
+    }
+
+  }
+
+  static getEntryEmployer(jobKey, jobOwner) {
+
+    return {
+      type: 'GET_JOB_ENTRY_EMPLOYER',
+      payload: firebase.database().ref('users/' + jobOwner + '/identity/name').once('value').then(dataSnapshot => {
+        return Promise.resolve({ name: dataSnapshot.val(), key: jobKey })
+      })
+    }
+
+  }
+
+  static setSearchDistance(distance) {
+
+    return {
+      type: 'SET_JOB_SEARCH_DISTANCE',
+      payload: distance
+    }
+
+  }
+
+  static setSearchTerm(term) {
+
+    return {
+      type: 'SET_JOB_SEARCH_TERM',
+      payload: term
     }
 
   }

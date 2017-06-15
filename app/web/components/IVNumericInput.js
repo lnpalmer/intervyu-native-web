@@ -9,8 +9,15 @@ class IVNumericInput extends Component {
 
     return (
       <div style={{
-        margin: 10
+        margin: 10,
+        userSelect: 'none'
       }}>
+        <IVText
+          value={this.props.preText}
+          style={{
+            marginRight: 6
+          }}
+        />
         <IVIcon
           value="minus"
           size="2x"
@@ -26,6 +33,12 @@ class IVNumericInput extends Component {
           size="2x"
           value="plus"
           onClick={() => this.onValue(this.props.value + this.props.increment)}
+        />
+        <IVText
+          value={this.props.postText}
+          style={{
+            marginLeft: 6
+          }}
         />
       </div>
     )

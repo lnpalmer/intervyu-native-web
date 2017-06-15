@@ -8,7 +8,9 @@ import IVSignup2 from './IVSignup2'
 import IVSignup3 from './IVSignup3'
 import IVJobSetup1 from './IVJobSetup1'
 import IVJobSetup2 from './IVJobSetup2'
+import IVJobSetup3 from './IVJobSetup3'
 import IVJobs from './IVJobs'
+import IVSettings from './IVSettings'
 
 @connect(store => { return {
     view: store.display.view
@@ -16,6 +18,21 @@ import IVJobs from './IVJobs'
 class IVNavigation extends Component {
 
   render() {
+
+    return (
+      <div>
+        {this.mainComponent()}
+        {
+          this.props.view === 'jobs' ?
+          <IVSettings/> : ''
+        }
+      </div>
+    )
+
+  }
+
+  mainComponent() {
+
     switch (this.props.view) {
 
       case 'mainMenu': return <IVMainMenu/>
@@ -25,9 +42,11 @@ class IVNavigation extends Component {
       case 'signup3': return <IVSignup3/>
       case 'jobSetup1': return <IVJobSetup1/>
       case 'jobSetup2': return <IVJobSetup2/>
+      case 'jobSetup3': return <IVJobSetup3/>
       case 'jobs': return <IVJobs/>
 
     }
+
   }
 
 }

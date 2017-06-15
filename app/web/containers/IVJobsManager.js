@@ -14,9 +14,11 @@ import IVButton from '../components/IVButton'
 import JobsActions from '../../actions/JobsActions'
 import DisplayActions from '../../actions/DisplayActions'
 import JobConstants from '../../constants/JobConstants'
+import StyleConstants from '../../constants/StyleConstants'
 
 @connect(store => { return {
-  jobs: store.jobs.entries
+  jobs: store.jobs.entries,
+  user: store.user
 }})
 class IVJobsManager extends Component {
 
@@ -51,11 +53,19 @@ class IVJobsManager extends Component {
 
   render() {
 
+    const { user, dispatch } = this.props
+
     return (
-      <div>
+      <div style={{
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: 15,
+        width: 520,
+        backgroundColor: StyleConstants.altColor
+      }}>
         {
           this.props.jobs.map((job, index) => {
-            return <IVJob key={index} job={job}/>
+            return <IVJob key={index} job={job} user={user} dispatch={dispatch} expanded={true}/>
           })
         }
       </div>

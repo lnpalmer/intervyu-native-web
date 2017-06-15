@@ -16,7 +16,7 @@ class IVLocationPicker extends Component {
     if (navigator && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(pos => {
         const { latitude, longitude } = pos.coords
-        this.props.onValue({ latitude: latitude, longitude: longitude })
+        this.onValue({ latitude: latitude, longitude: longitude })
         this.map.panTo({ lat: latitude, lng: longitude })
       })
     }
@@ -69,10 +69,25 @@ class IVLocationPicker extends Component {
 
     this.map.addListener('click', e => {
       const jsonLatLng = e.latLng.toJSON()
-      this.props.onValue({
+      this.onValue({
         latitude: jsonLatLng.lat,
         longitude: jsonLatLng.lng
       })
+    })
+
+  }
+
+  onValue(value) {
+
+    this.props.onValue(value)
+
+    const { google } = this.props
+
+    const geocoder = new google.maps.Geocoder()
+    geocoder.geocode({'location': { lat: value.latitude, lng: value.longitude }}, (results, status) => {
+      if (status == 'OK') {
+        this.props.onAddress(results[1].formatted_address)
+      }
     })
 
   }

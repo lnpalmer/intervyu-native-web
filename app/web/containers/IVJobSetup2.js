@@ -29,6 +29,16 @@ class IVJobSetup2 extends Component {
           <IVLocationPicker
             value={job.location}
             onValue={value => dispatch(JobsActions.setLocation(value))}
+            onAddress={value => dispatch(JobsActions.setAddress(value))}
+          />
+        </IVGroup>
+
+        <IVGroup width={600}>
+          <IVText value="Address for the listing:"/>
+          <IVTextInput
+            value={job.address}
+            onValue={value => dispatch(JobsActions.setAddress(value))}
+            size={30}
           />
         </IVGroup>
 
@@ -51,12 +61,8 @@ class IVJobSetup2 extends Component {
 
         <IVGroup>
           <IVButton
-            value="Finish"
-            onClick={() => {
-              dispatch(JobsActions.uploadJob(job)).catch(err => {
-                alert('There was an issue uploading your job: ' + err.message)
-              })
-            }}
+            value="Next"
+            onClick={() => dispatch(DisplayActions.setView('jobSetup3'))}
           />
         </IVGroup>
 

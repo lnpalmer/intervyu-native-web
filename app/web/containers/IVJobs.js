@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import IVGroup from '../components/IVGroup'
 import IVText from '../components/IVText'
 import IVButton from '../components/IVButton'
+import IVJobsSearch from './IVJobsSearch'
 import IVJobsManager from './IVJobsManager'
 import UserActions from '../../actions/UserActions'
 import DisplayActions from '../../actions/DisplayActions'
@@ -23,7 +24,7 @@ class IVJobs extends Component {
         {
           user.identity.type === 'employer' ?
           <IVJobsManager/> :
-          <IVText value="NOT IMPLEMENTED"/>
+          <IVJobsSearch/>
         }
 
         {
@@ -35,10 +36,7 @@ class IVJobs extends Component {
             />
           </IVGroup> : ''
         }
-
-        <IVGroup>
-          <IVButton value="Sign out" onClick={() => dispatch(UserActions.logOut())}/>
-        </IVGroup>
+        
       </div>
     )
 

@@ -6,10 +6,19 @@ const initialState = {
       longitude: -81.6944,
       latitude: 41.4993
     },
+    address: '',
     hours: 4,
-    transportation: false
+    transportation: false,
+    name: '',
+    description: '',
+    link: '',
+    icon: null,
   },
-  entries: []
+  entries: [],
+  searchSettings: {
+    distance: 0,
+    term: ''
+  }
 }
 
 /*
@@ -22,6 +31,14 @@ function jobsReducer(state = initialState, action) {
     pending: {
       ...state.pending,
       location: action.payload
+    }
+  }
+
+  if (action.type === 'SET_JOB_ADDRESS') state = {
+    ...state,
+    pending: {
+      ...state.pending,
+      address: action.payload
     }
   }
 
@@ -46,6 +63,57 @@ function jobsReducer(state = initialState, action) {
     pending: {
       ...state.pending,
       transportation: action.payload
+    }
+  }
+
+  if (action.type === 'SET_JOB_NAME') state = {
+    ...state,
+    pending: {
+      ...state.pending,
+      name: action.payload
+    }
+  }
+
+  if (action.type === 'SET_JOB_DESCRIPTION') state = {
+    ...state,
+    pending: {
+      ...state.pending,
+      description: action.payload
+    }
+  }
+
+  if (action.type === 'SET_JOB_LINK') state = {
+    ...state,
+    pending: {
+      ...state.pending,
+      link: action.payload
+    }
+  }
+
+  if (action.type === 'SET_JOB_ICON') state = {
+    ...state,
+    pending: {
+      ...state.pending,
+      icon: action.payload,
+      iconExtension:
+        action.payload ?
+        action.payload.name.split('.').pop() : ''
+    }
+  }
+
+  if (action.type === 'SET_JOB_SEARCH_DISTANCE') state = {
+    ...state,
+    searchSettings: {
+      ...state.searchSettings,
+      distance: action.payload
+    }
+  }
+
+  if (action.type === 'SET_JOB_SEARCH_TERM') state = {
+    ...state,
+    searchSettings: {
+      ...state.searchSettings,
+      term: action.payload
     }
   }
 
@@ -105,7 +173,10 @@ function jobsReducer(state = initialState, action) {
         ...state,
         entries: [
           ...state.entries,
-          action.payload
+          {
+            ...action.payload,
+            expanded: false
+          }
         ]
       }
     }
@@ -118,9 +189,46 @@ function jobsReducer(state = initialState, action) {
     })
   }
 
+  if (action.type === 'LOG_IN_USER_FULFILLED') {
+    state = {
+      ...state,
+      searchSettings: {
+        ...state.searchSettings,
+        distance: action.payload.val().config.distance
+      }
+    }
+  }
+
   if (action.type === 'LOG_OUT_USER_FULFILLED') state = {
     ...state,
     entries: []
+  }
+
+  if (action.type === 'SET_JOB_ENTRY_EXPANDED') state = {
+    ...state,
+    entries: state.entries.map(entry => {
+      if (entry.key === action.payload.key) {
+        return { ...entry, expanded: action.payload.expanded }
+      } else return entry
+    })
+  }
+
+  if (action.type === 'GET_JOB_ENTRY_THUMBNAIL_FULFILLED') state = {
+    ...state,
+    entries: state.entries.map(entry => {
+      if (entry.key === action.payload.key) {
+        return { ...entry, iconUrl: action.payload.url }
+      } else return entry
+    })
+  }
+
+  if (action.type === 'GET_JOB_ENTRY_EMPLOYER_FULFILLED') state = {
+    ...state,
+    entries: state.entries.map(entry => {
+      if (entry.key === action.payload.key) {
+        return { ...entry, ownerName: action.payload.name }
+      } else return entry
+    })
   }
 
   return state

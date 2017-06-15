@@ -8,17 +8,21 @@ class IVButton extends Component {
   render() {
     return (
       <div style={{
-        backgroundColor: StyleConstants.mainColor,
+        backgroundColor:
+          this.props.inverted ?
+          StyleConstants.altColor :
+          StyleConstants.mainColor,
         margin: 10,
         borderRadius: 3,
         flex: 1,
-        padding: '4 6'
+        padding: '4 6',
+        textAlign: 'center'
       }}
       onClick={() => this.props.onClick()}>
         <IVText
           value={this.props.value}
           fontSize={this.props.fontSize || 24}
-          inverted
+          inverted={!this.props.inverted}
         />
       </div>
     )

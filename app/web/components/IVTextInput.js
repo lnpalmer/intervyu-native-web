@@ -6,7 +6,10 @@ class IVTextInput extends Component {
 
   render() {
     return (
-      <div style={{margin: 10}}>
+      <div style={{
+        margin: 10,
+        ...this.props.style || {}
+      }}>
         <input
           type={
             this.props.secureTextEntry ?
@@ -19,8 +22,15 @@ class IVTextInput extends Component {
             border: 0,
             outline: 0,
             background: 'transparent',
-            borderBottom: '2px solid #2c6',
-            color: StyleConstants.mainColor,
+            borderBottom: '2px solid',
+            borderColor:
+              this.props.inverted ?
+              StyleConstants.altColor :
+              StyleConstants.mainColor,
+            color:
+              this.props.inverted ?
+              StyleConstants.altColor :
+              StyleConstants.mainColor,
             textAlign: 'center',
             fontSize: this.props.fontSize || 22
           }}

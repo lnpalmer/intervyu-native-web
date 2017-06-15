@@ -23,7 +23,7 @@ class IVJobSetup1 extends Component {
       <div>
 
         <IVGroup width={500}>
-          <IVText fontSize={21} value="What types of work experience do you have?"/>
+          <IVText fontSize={21} value="What work experience are you looking for?"/>
         </IVGroup>
         <IVGroup direction="row" width={400}>
           {
@@ -46,7 +46,7 @@ class IVJobSetup1 extends Component {
         </IVGroup>
 
         <IVGroup width={500}>
-          <IVText fontSize={21} value="What days can you work?"/>
+          <IVText fontSize={21} value="What days can students work?"/>
         </IVGroup>
         <IVGroup direction="row" width={450}>
           {
@@ -71,7 +71,7 @@ class IVJobSetup1 extends Component {
         <IVGroup>
           <IVButton
             value="Next"
-            onClick = {() => dispatch(DisplayActions.setView('jobSetup2'))}
+            onClick={() => dispatch(DisplayActions.setView('jobSetup2'))}
           />
         </IVGroup>
 
