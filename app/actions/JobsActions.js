@@ -167,6 +167,30 @@ class JobsActions {
 
   }
 
+  static downloadEntry(jobId) {
+
+    return {
+      type: 'DOWNLOAD_JOB_ENTRY',
+      payload: firebase.database().ref('jobs/' + jobId).once('value').then(dataSnapshot => {
+
+        const jobObject = dataSnapshot.val()
+        const jobId = dataSnapshot.key
+
+        return firebase.database().ref('users/' + jobObject.owner + '/config/industries').once('value').then(industriesSnapshot => {
+
+          return {
+            ...jobObject,
+            key: jobId,
+            industries: industriesSnapshot.val()
+          }
+
+        })
+
+      })
+    }
+
+  }
+
   static receiveEntry(jobObject) {
 
     return {

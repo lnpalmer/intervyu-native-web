@@ -28,8 +28,6 @@ class IVJob extends Component {
 
     const expanded = job.expanded || user.identity.type === 'employer'
 
-    console.log(job)
-
     return (
       <div
         style={{

@@ -165,6 +165,23 @@ function jobsReducer(state = initialState, action) {
     }
   }
 
+  if (action.type === 'DOWNLOAD_JOB_ENTRY_FULFILLED') {
+    if (state.entries.filter(job => {
+      return job.key === action.payload.key
+    }).length === 0) {
+      state = {
+        ...state,
+        entries: [
+          ...state.entries,
+          {
+            ...action.payload,
+            expanded: false
+          }
+        ]
+      }
+    }
+  }
+
   if (action.type === 'RECEIVE_JOB_ENTRY') {
     if (state.entries.filter(job => {
       return job.key === action.payload.key

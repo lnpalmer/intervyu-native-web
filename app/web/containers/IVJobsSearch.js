@@ -26,17 +26,18 @@ class IVJobsSearch extends Component {
 
     const { dispatch } = this.props
 
-    this.jobsRef = firebase.database().ref('jobs')
+    this.jobsRef = firebase.database().ref('jobsSmall')
 
-    this.jobsRef.on('child_added', (childSnapshot, prefChildKey) => {
-      dispatch(JobsActions.receiveEntry({
-        ...childSnapshot.val(),
-        key: childSnapshot.key
-      }))
+    this.jobsRef.on('child_added', (childSnapshot, prevChildKey) => {
+      if (this.distanceFromUser(childSnapshot.val()) < 50) {
+        dispatch(JobsActions.downloadEntry(childSnapshot.key))
+      }
     })
 
     this.jobsRef.on('child_removed', (childSnapshot) => {
-      dispatch(JobsActions.removeEntry(childSnapshot.key))
+      if (this.distanceFromUser(childSnapshot.val()) < 50) {
+        dispatch(JobsActions.removeEntry(childSnapshot.key))
+      }
     })
 
   }
@@ -58,7 +59,7 @@ class IVJobsSearch extends Component {
         display: 'flex'
       }}>
 
-        <div  style={{
+        <div style={{
           textAlign: 'right',
           marginRight: 0,
           marginLeft: 'auto',
@@ -107,7 +108,11 @@ class IVJobsSearch extends Component {
             <IVText value="Jobs" fontSize={28} inverted/>
           </div>
           {
-            jobs.entries.map((job, index) => {
+            jobs.entries
+            .filter(job => this.distanceFromUser(job) < jobs.searchSettings.distance)
+            .filter(job => job.name.toLowerCase().includes(jobs.searchSettings.term.toLowerCase()))
+            .sort((jobA, jobB) => this.scoreJobEntry(jobA) < this.scoreJobEntry(jobB))
+            .map((job, index) => {
               return (
                 <IVJob
                   key={index}
@@ -124,6 +129,50 @@ class IVJobsSearch extends Component {
 
       </div>
     )
+
+  }
+
+  scoreJobEntry(jobObject) {
+
+    const { user } = this.props
+
+    const distanceSubscore = -this.distanceFromUser(jobObject)
+
+    const experienceSubscore =
+      (jobObject.experience && user.config.experience) ?
+      jobObject.experience.map(experienceType => {
+        return user.config.experience.includes(experienceType) ? 1.0 : 0.0
+      }).reduce((a, b) => a + b) : 0
+
+    const daysSubscore =
+      (jobObject.days && user.config.days) ?
+      jobObject.days.map(day => {
+        return user.config.days.includes(day) ? 1.0 : 0.0
+      }).reduce((a, b) => a + b) : 0
+
+    const industriesSubscore =
+      (jobObject.industries && user.config.industries) ?
+      jobObject.industries.map(industry => {
+        return user.config.industries.includes(industry) ? 1.0 : 0.0
+      }).reduce((a, b) => a + b) : 0
+
+    const hoursSubscore =
+      jobObject.hours > user.config.hours ?
+      user.config.hours - jobObject.hours : 0
+
+    const transportationSubscore =
+      jobObject.transportation || user.config.transportation ?
+      1 : 0
+
+    const totalScore =
+      1.0 * distanceSubscore +
+      1.0 * experienceSubscore +
+      1.0 * industriesSubscore +
+      2.0 * daysSubscore +
+      0.5 * hoursSubscore +
+      8.0 * transportationSubscore
+
+    return totalScore
 
   }
 
@@ -151,6 +200,7 @@ class IVJobsSearch extends Component {
     ) * 60 * 1.1515 * 180 / Math.PI
 
     return dist
+
   }
 
 }

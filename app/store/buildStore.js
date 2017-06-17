@@ -10,7 +10,7 @@ import reducer from '../reducers/reducer'
 function buildStore() {
 
   let middleware
-  if (DEVELOPMENT && WEB) middleware = applyMiddleware(createLogger(), promise())
+  if (DEVELOPMENT && WEB) middleware = applyMiddleware(promise(), createLogger({ collapsed: true }))
   else middleware = applyMiddleware(promise())
 
   let store = createStore(reducer, middleware)
