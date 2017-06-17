@@ -23,16 +23,16 @@ class IVSignupType extends Component {
       }}>
 
         <IVGroup>
-          <IVText value="Are you a student or an employer?"/>
+          <IVText value="are you a student or an employer?"/>
         </IVGroup>
 
         <IVGroup direction="row">
           <IVButton
-            value="Student"
+            value="student"
             onClick={() => this.chooseType('student')}
           />
           <IVButton
-            value="Employer"
+            value="employer"
             onClick={() => this.chooseType('employer')}
           />
         </IVGroup>

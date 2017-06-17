@@ -22,55 +22,28 @@ class IVSignup2 extends Component {
     return (
       <div>
 
-        <IVGroup width={500}>
-          <IVText fontSize={21} value="What types of work experience do you have?"/>
-        </IVGroup>
-        <IVGroup direction="row" width={400}>
-          {
-            JobConstants.experienceTypes.map(experienceType => {
-              return (
-                <IVCheckbox
-                  key={experienceType}
-                  text={experienceType}
-                  value={user.config.experience.includes(experienceType)}
-                  onValue={value => {
-                    dispatch(value ?
-                      UserActions.addExperience(experienceType) :
-                      UserActions.delExperience(experienceType)
-                    )
-                  }}
-                />
-              )
-            })
-          }
+        <IVGroup>
+          <IVText
+            value="do you have any previous work experience?"
+          />
         </IVGroup>
 
-        <IVGroup width={500}>
-          <IVText fontSize={21} value="What days can you work?"/>
-        </IVGroup>
-        <IVGroup direction="row" width={450}>
-          {
-            JobConstants.days.map(day => {
-              return (
-                <IVCheckbox
-                  key={day}
-                  text={day}
-                  value={user.config.days.includes(day)}
-                  onValue={value => {
-                    dispatch(value ?
-                      UserActions.addDay(day) :
-                      UserActions.delDay(day)
-                    )
-                  }}
-                />
-              )
-            })
-          }
+        <IVGroup width={200} direction="row">
+          <IVCheckbox
+            text="Yes"
+            value={user.config.hasWorked}
+            onValue={value => dispatch(UserActions.setHasWorked(value))}
+          />
+          <IVCheckbox
+            text="No"
+            value={!user.config.hasWorked}
+            onValue={value => dispatch(UserActions.setHasWorked(!value))}
+          />
         </IVGroup>
 
         <IVGroup>
           <IVButton
-            value="Next"
+            value="next"
             onClick = {() => dispatch(DisplayActions.setView('signup3'))}
           />
         </IVGroup>

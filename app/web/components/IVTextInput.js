@@ -17,7 +17,11 @@ class IVTextInput extends Component {
             'text'
           }
           value={this.props.value}
-          onChange={e => this.props.onValue(e.target.value)}
+          onChange={e => this.props.onValue(
+            e.target.value.substring(
+              0, this.props.maxLength || 20
+            )
+          )}
           style={{
             border: 0,
             outline: 0,

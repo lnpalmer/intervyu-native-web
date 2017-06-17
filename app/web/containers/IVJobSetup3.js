@@ -26,7 +26,7 @@ class IVJobSetup3 extends Component {
       <div>
 
         <IVGroup width={500}>
-          <IVText value="Give your job a short name for the listing:"/>
+          <IVText value="give your job a short name for the listing:"/>
           <IVTextInput
             value={job.name}
             onValue={value => dispatch(JobsActions.setName(value))}
@@ -34,32 +34,34 @@ class IVJobSetup3 extends Component {
         </IVGroup>
 
         <IVGroup>
-          <IVText value="Briefly describe the job role:"/>
+          <IVText value="briefly describe the job role:"/>
           <IVTextInput
             value={job.description}
             onValue={value => dispatch(JobsActions.setDescription(value))}
             size={70}
+            maxLength={200}
           />
         </IVGroup>
 
         <IVGroup width={600}>
-          <IVText value="Upload a thumbnail image for the listing (use 16:10 aspect)"/>
+          <IVText value="upload a thumbnail image for the listing (use 16:10 aspect)"/>
           <IVFileInput
             onValue={value => dispatch(JobsActions.setIcon(value))}
           />
         </IVGroup>
 
         <IVGroup>
-          <IVText value="Provide a link to direct applicants to:"/>
+          <IVText value="provide a link to direct applicants to:"/>
           <IVTextInput
             value={job.link}
             onValue={value => dispatch(JobsActions.setLink(value))}
+            maxLength={200}
           />
         </IVGroup>
 
         <IVGroup>
           <IVButton
-            value="Finish"
+            value="finish"
             onClick={() => {
               dispatch(JobsActions.uploadJob(job)).catch(err => {
                 alert('There was an issue uploading your job: ' + err.message)

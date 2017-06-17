@@ -83,6 +83,33 @@ class UserActions {
 
   }
 
+  static setHasWorked(hasWorked) {
+
+    return {
+      type: 'SET_USER_HAS_WORKED',
+      payload: hasWorked
+    }
+
+  }
+
+  static addIndustry(industry) {
+
+    return {
+      type: 'ADD_USER_INDUSTRY',
+      payload: industry
+    }
+
+  }
+
+  static delIndustry(industry) {
+
+    return {
+      type: 'DEL_USER_INDUSTRY',
+      payload: industry
+    }
+
+  }
+
   static addExperience(experience) {
 
     return {
@@ -121,6 +148,16 @@ class UserActions {
 
   static createUser(userObject) {
 
+    const uploadObject = {
+      ...userObject,
+      status: null,
+      identity: {
+        ...userObject.identity,
+        password: null,
+        passwordRepeat: null
+      }
+    }
+
     return {
       type: 'CREATE_USER',
       payload:
@@ -129,7 +166,7 @@ class UserActions {
           userObject.identity.password
         ).then(user => {
           const fbUser = firebase.auth().currentUser
-          return firebase.database().ref('users/' + fbUser.uid).set(userObject)
+          return firebase.database().ref('users/' + fbUser.uid).set(uploadObject)
         })
     }
 
@@ -168,20 +205,31 @@ class UserActions {
         userObject.identity.password
       )
 
-    var payload = fbUser.reauthenticate(credential).then(() => {
+    var payload = fbUser.reauthenticateWithCredential(credential).then(() => {
       return firebase.database().ref('users/' + fbUser.uid).remove().then(() => {
         return fbUser.delete()
       })
     })
 
-    if (user.identity.type === 'employer') {
+    if (userObject.identity.type === 'employer') {
       payload = firebase.database().ref('jobs')
-      .orderByChild('owner').equalTo(fbUser.uid)
-      .remove().then(() => {
-        return
-          firebase.database().ref('jobsSmall')
-          .orderByChild('owner').equalTo(fbUser.uid)
-          .remove()
+      .orderByChild('owner').equalTo(fbUser.uid).once('value').then(dataSnapshot => {
+
+        const promises = []
+
+        dataSnapshot.forEach(childSnapshot => {
+
+          const jobId = childSnapshot.key
+          const jobObject = childSnapshot.val()
+
+          promises.push(firebase.database().ref('jobs/' + jobId).remove())
+          promises.push(firebase.database().ref('jobsSmall/' + jobId).remove())
+          promises.push(firebase.storage().ref('jobs/' + jobId + '/thumbnail.' + jobObject.iconExtension).delete())
+
+        })
+
+        return Promise.all(promises)
+
       })
     }
 

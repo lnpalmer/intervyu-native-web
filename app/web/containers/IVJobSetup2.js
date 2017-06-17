@@ -25,7 +25,7 @@ class IVJobSetup2 extends Component {
       <div>
 
         <IVGroup width={600}>
-          <IVText value="Location of the job:"/>
+          <IVText value="location of the job:"/>
           <IVLocationPicker
             value={job.location}
             onValue={value => dispatch(JobsActions.setLocation(value))}
@@ -34,16 +34,17 @@ class IVJobSetup2 extends Component {
         </IVGroup>
 
         <IVGroup width={600}>
-          <IVText value="Address for the listing:"/>
+          <IVText value="address for the listing:"/>
           <IVTextInput
             value={job.address}
             onValue={value => dispatch(JobsActions.setAddress(value))}
             size={30}
+            maxLength={60}
           />
         </IVGroup>
 
         <IVGroup width={500}>
-          <IVText value="How many hours do you need students to work per week?"/>
+          <IVText value="how many hours do you need students to work per week?"/>
           <IVNumericInput
             value={job.hours}
             onValue={value => dispatch(JobsActions.setHours(value))}
@@ -53,7 +54,7 @@ class IVJobSetup2 extends Component {
 
         <IVGroup width={500}>
           <IVCheckbox
-            text="Are you capable of providing transportation?"
+            text="are you capable of providing transportation?"
             value={job.transportation}
             onValue={value => dispatch(JobsActions.setTransportation(value))}
           />
@@ -61,7 +62,7 @@ class IVJobSetup2 extends Component {
 
         <IVGroup>
           <IVButton
-            value="Next"
+            value="next"
             onClick={() => dispatch(DisplayActions.setView('jobSetup3'))}
           />
         </IVGroup>

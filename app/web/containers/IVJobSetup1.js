@@ -22,12 +22,13 @@ class IVJobSetup1 extends Component {
     return (
       <div>
 
-        <IVGroup width={500}>
-          <IVText fontSize={21} value="What work experience are you looking for?"/>
+        <IVGroup width={700}>
+          <IVText fontSize={21} value="what experience and willingness to do tasks are you looking for?"/>
         </IVGroup>
-        <IVGroup direction="row" width={400}>
+        <IVGroup direction="row" width={500}>
+
           {
-            JobConstants.experienceTypes.map(experienceType => {
+            JobConstants.industries.map(experienceType => {
               return (
                 <IVCheckbox
                   key={experienceType}
@@ -43,10 +44,29 @@ class IVJobSetup1 extends Component {
               )
             })
           }
+
+          {
+            JobConstants.tasks.map(experienceType => {
+              return (
+                <IVCheckbox
+                  key={experienceType}
+                  text={experienceType}
+                  value={job.experience.includes(experienceType)}
+                  onValue={value => {
+                    dispatch(value ?
+                      JobsActions.addExperience(experienceType) :
+                      JobsActions.delExperience(experienceType)
+                    )
+                  }}
+                />
+              )
+            })
+          }
+
         </IVGroup>
 
         <IVGroup width={500}>
-          <IVText fontSize={21} value="What days can students work?"/>
+          <IVText fontSize={21} value="what days can students work?"/>
         </IVGroup>
         <IVGroup direction="row" width={450}>
           {
@@ -70,7 +90,7 @@ class IVJobSetup1 extends Component {
 
         <IVGroup>
           <IVButton
-            value="Next"
+            value="next"
             onClick={() => dispatch(DisplayActions.setView('jobSetup2'))}
           />
         </IVGroup>

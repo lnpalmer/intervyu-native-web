@@ -7,7 +7,7 @@ class IVGroup extends Component {
     return (
       <div style={{
         margin: '10 auto',
-        width: this.props.width || 300,
+        width: this.props.width || 400,
         display: 'flex',
         flexWrap: 'wrap',
         flexDirection: this.props.direction || 'column',

@@ -1,13 +1,22 @@
 class JobConstants {
 
-  static experienceTypes = [
-    "Food",
+  static industries = [
+    "Corporate Business",
+    "Delivery",
+    "Education",
+    "Food Service",
+    "Health",
+    "Hospitality",
     "Retail",
-    "General management",
-    "Advertising",
-    "Finance",
-    "Manufacturing",
-    "Other"
+    "Technology"
+  ]
+
+  static tasks = [
+    "Serving food",
+    "Teaching",
+    "Customer assistance",
+    "Providing expertise in a field",
+    "Lifting heavy items"
   ]
 
   static days = [

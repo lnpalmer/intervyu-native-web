@@ -44,10 +44,15 @@ function displayReducer(state = initialState, action) {
     }
   }
 
-  if (action.type === 'LOG_OUT_USER_FULFILLED') {
+  if (
+    action.type === 'LOG_OUT_USER_FULFILLED' ||
+    action.type === 'DELETE_USER_FULFILLED'
+  ) {
     state = {
       ...state,
-      view: 'mainMenu'
+      view: 'mainMenu',
+      settingsExpanded: false,
+      deletingAccount: false
     }
   }
 

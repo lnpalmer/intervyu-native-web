@@ -8,7 +8,9 @@ const initialState = {
     type: 'student'
   },
   config: {
+    industries: [],
     experience: [],
+    hasWorked: false,
     days: [],
     location: {
       longitude: -81.6944,
@@ -70,6 +72,35 @@ function userReducer(state = initialState, action) {
     config: {...state.config, transportation: action.payload}
   }
 
+  if (action.type === 'SET_USER_HAS_WORKED') state = {
+    ...state,
+    config: {...state.config, hasWorked: action.payload}
+  }
+
+  if (action.type === 'ADD_USER_INDUSTRY') state = {
+    ...state,
+    config: {
+      ...state.config,
+      industries: [...new Set([
+        ...state.config.industries,
+        action.payload
+      ])]
+    }
+  }
+
+  if (action.type === 'DEL_USER_INDUSTRY') {
+    const index = state.config.industries.indexOf(action.payload)
+    state = {
+      ...state,
+      config: {
+        ...state.config,
+        industries:
+          state.config.industries.slice(0, index)
+          .concat(state.config.industries.slice(index + 1))
+      }
+    }
+  }
+
   if (action.type === 'ADD_USER_EXPERIENCE') state = {
     ...state,
     config: {
@@ -125,20 +156,23 @@ function userReducer(state = initialState, action) {
 
   if (action.type === 'CREATE_USER_FULFILLED') state = {
     ...state,
-    status: 'online'
+    status: 'online',
+    identity: {...state.identity, password: ''}
   }
 
   if (action.type === 'LOG_IN_USER_FULFILLED') {
     const userData = action.payload.val()
     state = {
       status: 'online',
-      identity: { ...state.identity, ...userData.identity },
+      identity: { ...state.identity, ...userData.identity, password: '' },
       config: { ...state.config, ...userData.config }
     }
-    console.log(state)
   }
 
-  //if (action.type === 'LOG_OUT_USER_FULFILLED') state = initialState
+  if (
+    action.type === 'LOG_OUT_USER_FULFILLED' ||
+    action.type === 'DELETE_USER_FULFILLED'
+  ) state = initialState
 
   return state
 

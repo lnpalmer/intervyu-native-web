@@ -66,10 +66,10 @@ class IVJobsSearch extends Component {
           padding: 15,
         }}>
 
-          <IVText fontSize={22} value="Search settings" />
+          <IVText fontSize={22} value="search settings" />
 
           <IVNumericInput
-            preText="Maximum distance:"
+            preText="maximum distance:"
             postText="mi"
             value={jobs.searchSettings.distance}
             onValue={value => dispatch(JobsActions.setSearchDistance(value))}
@@ -77,7 +77,7 @@ class IVJobsSearch extends Component {
           />
 
           <IVText
-            value="Search term"
+            value="search term"
           />
 
           <IVTextInput

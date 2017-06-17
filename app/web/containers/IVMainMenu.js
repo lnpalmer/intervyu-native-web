@@ -23,15 +23,16 @@ class IVMainMenu extends Component {
       }}>
 
         <IVGroup>
-          <IVText value="Email:" fontSize={22}/>
+          <IVText value="email:" fontSize={22}/>
           <IVTextInput
             value={user.identity.email}
             onValue={value => dispatch(UserActions.setEmail(value))}
+            maxLength={50}
           />
         </IVGroup>
 
         <IVGroup>
-          <IVText value="Password:" fontSize={22}/>
+          <IVText value="password:" fontSize={22}/>
           <IVTextInput
             value={user.identity.password}
             onValue={value => dispatch(UserActions.setPassword(value))}
@@ -41,14 +42,14 @@ class IVMainMenu extends Component {
 
         <IVGroup direction="row">
           <IVButton
-            value="Sign in"
+            value="sign in"
             onClick={() => dispatch(UserActions.logIn(
               user.identity.email,
               user.identity.password
             ))}
           />
           <IVButton
-            value="Sign up"
+            value="sign up"
             onClick={() => dispatch(DisplayActions.setView('signupType'))}
           />
         </IVGroup>

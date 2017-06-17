@@ -9,13 +9,21 @@ class IVFileInput extends Component {
         const files = e.target.files
         console.log(files)
 
+
         if (files.length > 0) {
-          if (files[0].size > 128 * 1024) {
+
+          const fileExtension = files[0].name.split('.').pop()
+
+          if(!["png", "jpeg", "jpg"].includes(fileExtension)) {
+            alert('File format not supported. Upload a png or jpeg/jpg.')
+            e.target.value = null
+          } else if (files[0].size > 128 * 1024) {
             alert('This file is too large. Try uploading a file under 128KB.')
             e.target.value = null
           } else {
             this.props.onValue(files[0])
           }
+
         }
 
       }}/>

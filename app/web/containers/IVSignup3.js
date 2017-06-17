@@ -4,9 +4,7 @@ import { connect } from 'react-redux'
 import IVGroup from '../components/IVGroup'
 import IVText from '../components/IVText'
 import IVTextInput from '../components/IVTextInput'
-import IVNumericInput from '../components/IVNumericInput'
 import IVCheckbox from '../components/IVCheckbox'
-import IVLocationPicker from '../components/IVLocationPicker'
 import IVButton from '../components/IVButton'
 import UserActions from '../../actions/UserActions'
 import DisplayActions from '../../actions/DisplayActions'
@@ -24,48 +22,68 @@ class IVSignup3 extends Component {
     return (
       <div>
 
-        <IVGroup width={600}>
-          <IVText value="Pick your location:"/>
-          <IVLocationPicker
-            value={user.config.location}
-            onValue={value => dispatch(UserActions.setLocation(value))}
+        <IVGroup width={500}>
+          <IVText
+            fontSize={21}
+            value={
+              user.config.hasWorked ?
+              "what industries do you have work experience in?" :
+              "what types of tasks are you willing to do?"
+            }
           />
+        </IVGroup>
+        <IVGroup direction="row" width={400}>
+          {
+            (
+              user.config.hasWorked ?
+              JobConstants.industries :
+              JobConstants.tasks
+            )
+            .map(experienceType => {
+              return (
+                <IVCheckbox
+                  key={experienceType}
+                  text={experienceType}
+                  value={user.config.experience.includes(experienceType)}
+                  onValue={value => {
+                    dispatch(value ?
+                      UserActions.addExperience(experienceType) :
+                      UserActions.delExperience(experienceType)
+                    )
+                  }}
+                />
+              )
+            })
+          }
         </IVGroup>
 
         <IVGroup width={500}>
-          <IVText value="How many hours can you work per week?"/>
-          <IVNumericInput
-            value={user.config.hours}
-            onValue={value => dispatch(UserActions.setHours(value))}
-            min={4} max={20} increment={2}
-          />
+          <IVText fontSize={21} value="what days can you work?"/>
         </IVGroup>
-
-        <IVGroup width={500}>
-          <IVText value="Acceptable distance to job, in miles:"/>
-          <IVNumericInput
-            value={user.config.distance}
-            onValue={value => dispatch(UserActions.setDistance(value))}
-            min={5} max={50} increment={1}
-          />
-        </IVGroup>
-
-        <IVGroup width={500}>
-          <IVCheckbox
-            text="I have means of transportation"
-            value={user.config.transportation}
-            onValue={value => dispatch(UserActions.setTransportation(value))}
-          />
+        <IVGroup direction="row" width={450}>
+          {
+            JobConstants.days.map(day => {
+              return (
+                <IVCheckbox
+                  key={day}
+                  text={day}
+                  value={user.config.days.includes(day)}
+                  onValue={value => {
+                    dispatch(value ?
+                      UserActions.addDay(day) :
+                      UserActions.delDay(day)
+                    )
+                  }}
+                />
+              )
+            })
+          }
         </IVGroup>
 
         <IVGroup>
           <IVButton
-            value="Finish"
-            onClick={() => {
-              dispatch(UserActions.createUser(user)).catch(err => {
-                alert('There was an issue creating your account: ' + err.message)
-              })
-            }}
+            value="next"
+            onClick = {() => dispatch(DisplayActions.setView('signup4'))}
           />
         </IVGroup>
 

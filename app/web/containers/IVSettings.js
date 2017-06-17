@@ -75,7 +75,7 @@ class IVSettings extends Component {
                 inverted
               />
 
-              <IVGroup direction="row">
+              <IVGroup direction="row" width={380}>
                 <IVButton
                   value={"cancel"}
                   onClick={() => dispatch(DisplayActions.setDeletingAccount(false))}
