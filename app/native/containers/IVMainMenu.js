@@ -23,25 +23,30 @@ class IVMainMenu extends Component {
     return (
       <View>
 
-        <IVText value="Email:"/>
+        <IVText value="email:"/>
         <IVTextInput
           value={user.identity.email}
           onValue={value => dispatch(UserActions.setEmail(value))}
         />
-        <IVText value="Password:"/>
+        <IVText value="password:"/>
         <IVTextInput
           value={user.identity.password}
           onValue={value => dispatch(UserActions.setPassword(value))}
           secureTextEntry
         />
         <IVButton
-          value="Sign in"
-          onPress={() => dispatch(DisplayActions.setView('jobs'))}
+          value="sign in"
+          onPress={() => dispatch(UserActions.logIn(
+            user.identity.email,
+            user.identity.password
+          )).catch(error => {
+            alert('There was a problem signing into your account: ' + error.message.toLowerCase())
+          })}
         />
 
-        <IVText value="Don't have an account?"/>
+        <IVText value="don't have an account?"/>
         <IVButton
-          value="Sign up"
+          value="sign up"
           onPress={() => dispatch(DisplayActions.setView('signup1'))}
         />
 

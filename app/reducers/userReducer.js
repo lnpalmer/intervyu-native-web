@@ -154,6 +154,11 @@ function userReducer(state = initialState, action) {
     status: 'pendingCreation'
   }
 
+  if (action.type === 'CREATE_USER_REJECTED') state = {
+    ...state,
+    status: 'offline'
+  }
+
   if (action.type === 'CREATE_USER_FULFILLED') state = {
     ...state,
     status: 'online',
@@ -162,10 +167,15 @@ function userReducer(state = initialState, action) {
 
   if (action.type === 'LOG_IN_USER_FULFILLED') {
     const userData = action.payload.val()
-    state = {
-      status: 'online',
-      identity: { ...state.identity, ...userData.identity, password: '' },
-      config: { ...state.config, ...userData.config }
+
+    const WEB = process.env.PLATFORM_ENV === 'web'
+
+    if (WEB || userData.identity.type === 'student') {
+      state = {
+        status: 'online',
+        identity: { ...state.identity, ...userData.identity, password: '' },
+        config: { ...state.config, ...userData.config }
+      }
     }
   }
 

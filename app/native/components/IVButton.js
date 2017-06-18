@@ -3,29 +3,31 @@ import { View, Text, TouchableOpacity } from 'react-native'
 
 import StyleConstants from '../../constants/StyleConstants'
 
-const viewStyle = {
-  backgroundColor: StyleConstants.mainColor,
-  margin: 10,
-  alignItems: 'center',
-  height: 40
-}
-
-const textStyle = {
-  color: StyleConstants.altColor,
-  fontSize: 28,
-  fontWeight: '600',
-  textAlign: 'center',
-  fontFamily: StyleConstants.fontFamily
-}
-
 class IVButton extends Component {
 
   render() {
 
     return (
       <TouchableOpacity onPress={() => this.props.onPress()}>
-        <View style={viewStyle}>
-          <Text style={textStyle}>
+        <View style={{
+          backgroundColor:
+            this.props.inverted ?
+            StyleConstants.altColor :
+            StyleConstants.mainColor,
+          margin: this.props.small ? 5 : 10,
+          alignItems: 'center',
+          height: this.props.small ? 28 : 40,
+        }}>
+          <Text style={{
+            color:
+              this.props.inverted ?
+              StyleConstants.mainColor :
+              StyleConstants.altColor,
+            fontSize: this.props.small ? 18 : 28,
+            fontWeight: '600',
+            textAlign: 'center',
+            fontFamily: StyleConstants.fontFamily
+          }}>
             {this.props.value}
           </Text>
         </View>

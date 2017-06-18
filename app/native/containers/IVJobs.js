@@ -6,6 +6,8 @@ import IVButton from '../components/IVButton'
 import IVText from '../components/IVText'
 import IVTextInput from '../components/IVTextInput'
 
+import IVJobsSearch from './IVJobsSearch'
+
 import UserActions from '../../actions/UserActions'
 import DisplayActions from '../../actions/DisplayActions'
 
@@ -20,17 +22,12 @@ class IVJobs extends Component {
 
     const { user, dispatch } = this.props
 
-    if (user.status === 'new') {
-      dispatch(UserActions.uploadUser(user))
-    }
-
     return (
-      <View>
-        <IVText value={"User status: " + user.status}/>
-        <IVButton
-          value="Sign out"
-          onPress={() => dispatch(DisplayActions.setView('mainMenu'))}
-        />
+      <View style={{
+        height: 'auto',
+        flex: 1
+      }}>
+        <IVJobsSearch/>
       </View>
     )
 

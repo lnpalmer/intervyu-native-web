@@ -38,9 +38,18 @@ function displayReducer(state = initialState, action) {
   }
 
   if (action.type === 'LOG_IN_USER_FULFILLED') {
-    state = {
-      ...state,
-      view: 'jobs'
+
+    const userData = action.payload.val()
+
+    const WEB = process.env.PLATFORM_ENV === 'web'
+
+    if (WEB || userData.identity.type === 'student') {
+      state = {
+        ...state,
+        view: 'jobs'
+      }
+    } else {
+      alert('Employer accounts are only available on the web client.')
     }
   }
 

@@ -243,6 +243,15 @@ class JobsActions {
 
   }
 
+  static setMode(mode) {
+
+    return {
+      type: 'SET_JOBS_MODE',
+      payload: mode
+    }
+
+  }
+
   static setSearchDistance(distance) {
 
     return {

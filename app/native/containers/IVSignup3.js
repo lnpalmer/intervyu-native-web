@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { View, Text, Button } from 'react-native'
 import { connect } from 'react-redux'
-import RNGooglePlacePicker from 'react-native-google-place-picker'
 
 import IVButton from '../components/IVButton'
 import IVText from '../components/IVText'
-import IVNumericInput from '../components/IVNumericInput'
+import IVTextInput from '../components/IVTextInput'
 import IVCheckbox from '../components/IVCheckbox'
+
 import UserActions from '../../actions/UserActions'
 import DisplayActions from '../../actions/DisplayActions'
+import JobConstants from '../../constants/JobConstants'
 
 @connect(store => {
   return {
@@ -17,86 +18,82 @@ import DisplayActions from '../../actions/DisplayActions'
 })
 class IVSignup3 extends Component {
 
-  componentDidMount() {
-
-    this.pickLocation()
-
-  }
-
   render() {
 
     const { user, dispatch } = this.props
 
     return (
       <View>
-
-        <IVText value="How many hours can you work per week?"/>
-        <IVNumericInput
-          value={user.config.hours}
-          onValue={value => {dispatch(UserActions.setHours(value))}}
-          increment={2} min={4} max={20}
-        />
-
-        <IVText value="Acceptable distance to job, in miles:"/>
-        <IVNumericInput
-          value={user.config.distance}
-          onValue={value => {dispatch(UserActions.setDistance(value))}}
-          increment={1} min={5} max={50}
-        />
-
-        <IVCheckbox
-          style={{ justifyContent: 'center' }}
-          text="I have means of transportation"
-          fontSize={18}
-          value={user.config.transportation}
-          onValue={value => dispatch(UserActions.setTransportation(value))}
-        />
-
-        {
-          user.config.location.didCancel ?
-          (
-            <View>
-              <IVText value="Location not recieved."/>
-              <IVButton
-                value="Set location"
-                onPress={() => this.pickLocation()}
-              />
-            </View>
-          ) : (
-
-            user.status === 'pendingCreation' ?
+        <IVText value={
+          user.config.hasWorked ?
+          "what industries do you have work experience in?" :
+          "what types of tasks are you willing to do?"
+        }/>
+        <View style={{
+          flex: 0,
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          padding: 10,
+          justifyContent: 'center'
+        }}>
+          {
             (
-              <IVButton
-                value="Creating user..."
-              />
-            ) : (
-              <IVButton
-                value="Finish"
-                onPress={() => dispatch(UserActions.createUser(user.identity.email, user.identity.password))}
-              />
+              user.config.hasWorked ?
+              JobConstants.industries :
+              JobConstants.tasks
             )
+            .map(experienceType => {
+              return (
+                <IVCheckbox
+                  key={experienceType}
+                  text={experienceType}
+                  value={user.config.experience.includes(experienceType)}
+                  onValue={value => {
+                    dispatch(value ?
+                      UserActions.addExperience(experienceType) :
+                      UserActions.delExperience(experienceType)
+                    )
+                  }}
+                />
+              )
+            })
+          }
+        </View>
 
-          )
-        }
+        <IVText value="what days can you work?"/>
+        <View style={{
+          flex: 0,
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          padding: 10,
+          justifyContent: 'center'
+        }}>
+          {
+            JobConstants.days.map(day => {
+              return (
+                <IVCheckbox
+                  key={day}
+                  text={day}
+                  value={user.config.days.includes(day)}
+                  onValue={value => {
+                    dispatch(value ?
+                      UserActions.addDay(day) :
+                      UserActions.delDay(day)
+                    )
+                  }}
+                />
+              )
+            })
+          }
+        </View>
+
+        <IVButton
+          value="next"
+          onPress={() => dispatch(DisplayActions.setView('signup4'))}
+        />
 
       </View>
     )
-
-  }
-
-  pickLocation() {
-
-    const { user, dispatch } = this.props
-
-    RNGooglePlacePicker.show(response => {
-
-      dispatch(UserActions.setLocation({
-        latitude: response.latitude,
-        longitude: response.longitude,
-        didCancel: response.didCancel
-      }))
-
-    })
 
   }
 

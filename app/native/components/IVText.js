@@ -9,12 +9,16 @@ class IVText extends Component {
 
     return (
       <Text style={{
-        ...this.props.style || {},
-        fontSize: this.props.fontSize || 18,
-        color: StyleConstants.mainColor,
+        fontSize: this.props.fontSize || 20,
+        fontStyle: this.props.fontStyle || 'normal',
+        color:
+          this.props.inverted ?
+          StyleConstants.altColor :
+          StyleConstants.mainColor,
         fontFamily: StyleConstants.fontFamily,
         fontWeight: '500',
-        textAlign: 'center'
+        textAlign: 'center',
+        ...this.props.style || {}
       }}> {this.props.value} </Text>
     )
 

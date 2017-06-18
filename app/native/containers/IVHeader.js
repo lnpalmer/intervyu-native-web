@@ -53,7 +53,7 @@ class IVHeader extends Component {
     const { display } = this.props
 
     return (
-      <View style={{...viewStyle, paddingTop: display.statusBarHeight - 20}}>
+      <View style={{...viewStyle, paddingTop: display.statusBarHeight - 14}}>
         <Text style={textStyle}> Intervyu </Text>
         <View style={bufferStyle}/>
       </View>

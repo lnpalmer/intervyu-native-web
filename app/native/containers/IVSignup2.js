@@ -9,6 +9,7 @@ import IVCheckbox from '../components/IVCheckbox'
 
 import UserActions from '../../actions/UserActions'
 import DisplayActions from '../../actions/DisplayActions'
+
 import JobConstants from '../../constants/JobConstants'
 
 @connect(store => {
@@ -24,7 +25,9 @@ class IVSignup2 extends Component {
 
     return (
       <View>
-        <IVText value="What types of work experience do you have?"/>
+
+        <IVText fontSize={18} value="what industries are you interested in?"/>
+
         <View style={{
           flex: 0,
           flexDirection: 'row',
@@ -33,16 +36,16 @@ class IVSignup2 extends Component {
           justifyContent: 'center'
         }}>
           {
-            JobConstants.experienceTypes.map(experienceType => {
+            JobConstants.industries.map(experienceType => {
               return (
                 <IVCheckbox
                   key={experienceType}
                   text={experienceType}
-                  value={user.config.experience.includes(experienceType)}
+                  value={user.config.industries.includes(experienceType)}
                   onValue={value => {
                     dispatch(value ?
-                      UserActions.addExperience(experienceType) :
-                      UserActions.delExperience(experienceType)
+                      UserActions.addIndustry(experienceType) :
+                      UserActions.delIndustry(experienceType)
                     )
                   }}
                 />
@@ -51,7 +54,8 @@ class IVSignup2 extends Component {
           }
         </View>
 
-        <IVText value="What days can you work?"/>
+        <IVText fontSize={18} value="do you have any previous work experience?"/>
+
         <View style={{
           flex: 0,
           flexDirection: 'row',
@@ -59,30 +63,22 @@ class IVSignup2 extends Component {
           padding: 10,
           justifyContent: 'center'
         }}>
-          {
-            JobConstants.days.map(day => {
-              return (
-                <IVCheckbox
-                  key={day}
-                  text={day}
-                  value={user.config.days.includes(day)}
-                  onValue={value => {
-                    dispatch(value ?
-                      UserActions.addDay(day) :
-                      UserActions.delDay(day)
-                    )
-                  }}
-                />
-              )
-            })
-          }
+          <IVCheckbox
+            text="Yes"
+            value={user.config.hasWorked}
+            onValue={value => dispatch(UserActions.setHasWorked(value))}
+          />
+          <IVCheckbox
+            text="No"
+            value={!user.config.hasWorked}
+            onValue={value => dispatch(UserActions.setHasWorked(!value))}
+          />
         </View>
 
         <IVButton
           value="Next"
           onPress={() => dispatch(DisplayActions.setView('signup3'))}
         />
-
       </View>
     )
 

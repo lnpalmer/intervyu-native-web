@@ -5,9 +5,12 @@ import { connect } from 'react-redux'
 import IVButton from '../components/IVButton'
 import IVText from '../components/IVText'
 import IVTextInput from '../components/IVTextInput'
+import IVCheckbox from '../components/IVCheckbox'
 
 import UserActions from '../../actions/UserActions'
 import DisplayActions from '../../actions/DisplayActions'
+
+import JobConstants from '../../constants/JobConstants'
 
 @connect(store => {
   return {
@@ -22,25 +25,25 @@ class IVSignup1 extends Component {
 
     return (
       <View>
-        <IVText value="What's your name?"/>
+        <IVText value="what's your name?"/>
         <IVTextInput
           value={user.identity.name}
           onValue={value => dispatch(UserActions.setName(value))}
         />
 
-        <IVText value="Your email address:"/>
+        <IVText value="your email address:"/>
         <IVTextInput
           value={user.identity.email}
           onValue={value => dispatch(UserActions.setEmail(value))}
         />
 
-        <IVText value="Enter a password:"/>
+        <IVText value="enter a password:"/>
         <IVTextInput
           value={user.identity.password}
           onValue={value => dispatch(UserActions.setPassword(value))}
         secureTextEntry/>
 
-        <IVText value="Repeat your password:"/>
+        <IVText value="repeat your password:"/>
         <IVTextInput
           value={user.identity.passwordRepeat}
           onValue={value => dispatch(UserActions.setPasswordRepeat(value))}

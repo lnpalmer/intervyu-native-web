@@ -16,9 +16,10 @@ const initialState = {
   },
   entries: [],
   searchSettings: {
-    distance: 0,
+    distance: 5,
     term: ''
-  }
+  },
+  mode: 'jobs'
 }
 
 /*
@@ -99,6 +100,11 @@ function jobsReducer(state = initialState, action) {
         action.payload ?
         action.payload.name.split('.').pop() : ''
     }
+  }
+
+  if (action.type === 'SET_JOBS_MODE') state = {
+    ...state,
+    mode: action.payload
   }
 
   if (action.type === 'SET_JOB_SEARCH_DISTANCE') state = {

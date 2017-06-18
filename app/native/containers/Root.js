@@ -9,7 +9,9 @@ class Root extends Component {
   render() {
 
     return (
-      <View>
+      <View style={{
+        height: '100%'
+      }}>
         <IVHeader/>
         <IVNavigation/>
       </View>
