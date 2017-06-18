@@ -63,7 +63,7 @@ class IVJob extends Component {
         <View style={{ display: 'flex', flexDirection: 'row', height: 25 }}>
           <IVText inverted={job.expanded} fontSize={15} value={job.name} style={{ flex: 2, fontWeight: '700', margin: 0 }}/>
           <IVText inverted={job.expanded} fontSize={15} value={job.ownerName} style={{ flex: 2, fontWeight: '700', margin: 0 }}/>
-          <IVText inverted={job.expanded} fontSize={15} value={Math.floor(distance) + 'mi'} style={{ flex: .6, fontWeight: '500', marginRight: 10 }}/>
+          <IVText inverted={job.expanded} fontSize={15} value={Math.ceil(distance) + 'mi'} style={{ flex: .6, fontWeight: '500', marginRight: 10 }}/>
         </View>
 
         {

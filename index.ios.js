@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { AppRegistry } from 'react-native'
 import { Provider } from 'react-redux'
 
-import FirebaseConstants from '../constants/FirebaseConstants'
+import FirebaseConstants from './app/constants/FirebaseConstants'
 
 import buildStore from './app/store/buildStore'
 import Root from './app/native/containers/Root'

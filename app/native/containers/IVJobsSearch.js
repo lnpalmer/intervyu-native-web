@@ -100,7 +100,7 @@ class IVJobsSearch extends Component {
 
               {
                 jobs.entries
-                .filter(job => this.distanceFromUser(job) < jobs.searchSettings.distance)
+                .filter(job => JobConstants.distanceFromUser(user, job) < jobs.searchSettings.distance)
                 .filter(job => job.name.toLowerCase().includes(jobs.searchSettings.term.toLowerCase()))
                 .sort((jobA, jobB) => JobConstants.scoreJobEntry(user, jobA) < JobConstants.scoreJobEntry(user, jobB))
                 .map((job, index) => {
