@@ -24,18 +24,18 @@ class IVJobsSearch extends Component {
 
   componentDidMount() {
 
-    const { dispatch } = this.props
+    const { user, dispatch } = this.props
 
     this.jobsRef = firebase.database().ref('jobsSmall')
 
     this.jobsRef.on('child_added', (childSnapshot, prevChildKey) => {
-      if (this.distanceFromUser(childSnapshot.val()) < 50) {
+      if (JobConstants.distanceFromUser(user, childSnapshot.val()) < 50) {
         dispatch(JobsActions.downloadEntry(childSnapshot.key))
       }
     })
 
     this.jobsRef.on('child_removed', (childSnapshot) => {
-      if (this.distanceFromUser(childSnapshot.val()) < 50) {
+      if (JobConstants.distanceFromUser(user, childSnapshot.val()) < 50) {
         dispatch(JobsActions.removeEntry(childSnapshot.key))
       }
     })
@@ -109,9 +109,9 @@ class IVJobsSearch extends Component {
           </div>
           {
             jobs.entries
-            .filter(job => this.distanceFromUser(job) < jobs.searchSettings.distance)
+            .filter(job => JobConstants.distanceFromUser(user, job) < jobs.searchSettings.distance)
             .filter(job => job.name.toLowerCase().includes(jobs.searchSettings.term.toLowerCase()))
-            .sort((jobA, jobB) => this.scoreJobEntry(jobA) < this.scoreJobEntry(jobB))
+            .sort((jobA, jobB) => JobConstants.scoreJobEntry(user, jobA) < JobConstants.scoreJobEntry(user, jobB))
             .map((job, index) => {
               return (
                 <IVJob
@@ -120,7 +120,7 @@ class IVJobsSearch extends Component {
                   user={user}
                   expanded={true}
                   dispatch={dispatch}
-                  distance={this.distanceFromUser(job)}
+                  distance={JobConstants.distanceFromUser(user, job)}
                 />
               )
             })
@@ -129,77 +129,6 @@ class IVJobsSearch extends Component {
 
       </div>
     )
-
-  }
-
-  scoreJobEntry(jobObject) {
-
-    const { user } = this.props
-
-    const distanceSubscore = -this.distanceFromUser(jobObject)
-
-    const experienceSubscore =
-      (jobObject.experience && user.config.experience) ?
-      jobObject.experience.map(experienceType => {
-        return user.config.experience.includes(experienceType) ? 1.0 : 0.0
-      }).reduce((a, b) => a + b) : 0
-
-    const daysSubscore =
-      (jobObject.days && user.config.days) ?
-      jobObject.days.map(day => {
-        return user.config.days.includes(day) ? 1.0 : 0.0
-      }).reduce((a, b) => a + b) : 0
-
-    const industriesSubscore =
-      (jobObject.industries && user.config.industries) ?
-      jobObject.industries.map(industry => {
-        return user.config.industries.includes(industry) ? 1.0 : 0.0
-      }).reduce((a, b) => a + b) : 0
-
-    const hoursSubscore =
-      jobObject.hours > user.config.hours ?
-      user.config.hours - jobObject.hours : 0
-
-    const transportationSubscore =
-      jobObject.transportation || user.config.transportation ?
-      1 : 0
-
-    const totalScore =
-      1.0 * distanceSubscore +
-      1.0 * experienceSubscore +
-      1.0 * industriesSubscore +
-      2.0 * daysSubscore +
-      0.5 * hoursSubscore +
-      8.0 * transportationSubscore
-
-    return totalScore
-
-  }
-
-  distanceFromUser(jobObject) {
-
-    const { user } = this.props
-
-    const latLng1 = jobObject.location
-    const lat1 = latLng1.latitude
-    const lng1 = latLng1.longitude
-
-    const latLng2 = user.config.location
-    const lat2 = latLng2.latitude
-    const lng2 = latLng2.longitude
-
-    const lat1Rads = Math.PI * lat1 / 180
-    const lng1Rads = Math.PI * lng1 / 180
-    const lat2Rads = Math.PI * lat2 / 180
-    const lng2Rads = Math.PI * lng2 / 180
-
-    const theta = lng2Rads - lng1Rads
-    const dist = Math.acos(
-      Math.sin(lat1Rads) * Math.sin(lat2Rads) +
-      Math.cos(lat1Rads) * Math.cos(lat2Rads) * Math.cos(theta)
-    ) * 60 * 1.1515 * 180 / Math.PI
-
-    return dist
 
   }
 

@@ -1,10 +1,6 @@
 ## intervyu-native-web
 
-Before doing anything Android, run:
-
-source ./android_vars
-
-to set Android SDK environment variables.
+Before doing anything Android, run 'source android_vars' to set Android SDK environment variables.
 
 For iOS, make sure to open the .xcworkspace instead of the .xcodeproj in ios/.
 
