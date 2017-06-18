@@ -83,7 +83,9 @@ class IVSettings extends Component {
                 />
                 <IVButton
                   value={"confirm"}
-                  onClick={() => dispatch(UserActions.delete(user))}
+                  onClick={() => dispatch(UserActions.delete(user)).catch(err => {
+                    alert('There was an issue deleting your account: ' + err.message)
+                  })}
                   inverted
                 />
               </IVGroup>

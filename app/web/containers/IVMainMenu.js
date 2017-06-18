@@ -46,7 +46,9 @@ class IVMainMenu extends Component {
             onClick={() => dispatch(UserActions.logIn(
               user.identity.email,
               user.identity.password
-            ))}
+            )).catch(error => {
+              alert('There was a problem signing into your account: ' + error.message.toLowerCase())
+            })}
           />
           <IVButton
             value="sign up"

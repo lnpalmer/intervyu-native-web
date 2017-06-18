@@ -74,7 +74,8 @@ class IVSignup4 extends Component {
           <IVButton
             value="finish"
             onClick={() => {
-              dispatch(UserActions.createUser(user)).catch(err => {
+              dispatch(UserActions.createUser(user))
+              .catch(err => {
                 alert('There was an issue creating your account: ' + err.message)
               })
             }}
