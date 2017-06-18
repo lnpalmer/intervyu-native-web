@@ -104,11 +104,6 @@ class IVJob extends Component {
 
   }
 
-  /*<Image
-    style={{ width: 160, height: 100 }}
-    source={{ uri: job.iconUrl }}
-  />*/
-
 }
 
 export default IVJob

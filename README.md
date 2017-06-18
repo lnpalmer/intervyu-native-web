@@ -9,3 +9,5 @@ Take a look at https://github.com/kauffecup/react-native-web-hello-world for an 
 package.json contains some helpful scripts (from kauffecup's repo):
 
 For example, 'npm run web-dev' starts the webpack development server on port 8080 with hot reloading.
+
+'npm run web-bundle' outputs a standalone site in web/public, just index.html, style.css, and bundle.js.
